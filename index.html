@@ -3,26 +3,192 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>ABTR – ABUL-TURAB Online Market</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7f5;
+      color: #123b2a;
+    }
+
+    header {
+      background: #075e3b;
+      color: white;
+      padding: 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 25px;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      font-size: 14px;
+    }
+
+    nav {
+      background: white;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    nav a {
+      color: #075e3b;
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 45px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #e9f7ef, #ffffff);
+    }
+
+    .hero h2 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 22px;
+      background: #075e3b;
+      color: white;
+      padding: 13px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .categories {
+      padding: 35px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .categories h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .category {
+      background: white;
+      padding: 28px 18px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .category h3 {
+      margin-bottom: 10px;
+    }
+
+    .category p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 30px;
+      background: #075e3b;
+      color: white;
+      text-align: center;
+      padding: 22px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>ABTR – ABUL-TURAB Online Market</h1>
+  <header>
+    <h1>ABTR</h1>
+    <p>ABUL-TURAB Online Market</p>
+  </header>
 
-  <h2>Kasuwar Aminci da Riba</h2>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Fashion</a>
+    <a href="#">Phone Accessories</a>
+    <a href="#">Health Products</a>
+  </nav>
 
-  <p>
-    Shop and sell across Nigeria and West Africa with trust, safety, and profit.
-  </p>
+  <section class="hero">
+    <h2>Kasuwar Aminci da Riba</h2>
 
-  <h3>Our Categories</h3>
+    <p>
+      Shop and sell across Nigeria and West Africa
+      with trust, safety, and profit.
+    </p>
 
-  <ul>
-    <li>Fashion</li>
-    <li>Phone Accessories</li>
-    <li>Health Products</li>
-  </ul>
+    <a href="#" class="button">Start Shopping</a>
+  </section>
+
+  <section class="categories">
+
+    <h2>Shop by Category</h2>
+
+    <div class="category-grid">
+
+      <div class="category">
+        <h3>👗 Fashion</h3>
+        <p>
+          Jallabiya, Abaya, shoes, watches,
+          hats and other fashion products.
+        </p>
+      </div>
+
+      <div class="category">
+        <h3>📱 Phone Accessories</h3>
+        <p>
+          Phone accessories, repair items
+          and useful mobile products.
+        </p>
+      </div>
+
+      <div class="category">
+        <h3>🏥 Health Products</h3>
+        <p>
+          Quality health products from trusted
+          sellers.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 ABTR – ABUL-TURAB Online Market
+    <br>
+    Kasuwar Aminci da Riba
+  </footer>
 
 </body>
 </html>
