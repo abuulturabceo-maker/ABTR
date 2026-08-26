@@ -22,61 +22,66 @@
     header {
       background: #075e3b;
       color: white;
-      padding: 18px;
-      text-align: center;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    header h1 {
-      font-size: 25px;
-      margin-bottom: 6px;
-    }
-
-    header p {
-      font-size: 14px;
-    }
-
-    nav {
-      background: white;
-      padding: 12px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    nav a {
-      color: #075e3b;
-      text-decoration: none;
-      margin: 0 8px;
+    .logo {
+      font-size: 24px;
       font-weight: bold;
+    }
+
+    .signin {
+      color: white;
+      text-decoration: none;
+      border: 1px solid white;
+      padding: 8px 14px;
+      border-radius: 6px;
       font-size: 14px;
     }
 
     .hero {
       padding: 45px 20px;
       text-align: center;
-      background: linear-gradient(135deg, #e9f7ef, #ffffff);
+      background: linear-gradient(135deg, #e8f6ee, #ffffff);
     }
 
-    .hero h2 {
-      font-size: 30px;
+    .hero h1 {
+      font-size: 32px;
       margin-bottom: 12px;
     }
 
     .hero p {
+      color: #555;
+      line-height: 1.6;
       max-width: 600px;
       margin: auto;
-      line-height: 1.6;
-      color: #555;
     }
 
-    .button {
-      display: inline-block;
-      margin-top: 22px;
+    .search {
+      margin: 25px auto 0;
+      max-width: 600px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .search input {
+      flex: 1;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    .search button {
       background: #075e3b;
       color: white;
-      padding: 13px 25px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
+      border: none;
+      padding: 13px 18px;
+      border-radius: 7px;
+      cursor: pointer;
     }
 
     .categories {
@@ -87,7 +92,7 @@
 
     .categories h2 {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
     }
 
     .category-grid {
@@ -110,17 +115,91 @@
 
     .category p {
       color: #666;
-      font-size: 14px;
       line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .products {
+      padding: 10px 20px 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .products h2 {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .product {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .product-image {
+      height: 150px;
+      background: #eaf3ed;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .product h3 {
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #075e3b;
+    }
+
+    .whatsapp {
+      display: inline-block;
+      background: #075e3b;
+      color: white;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 7px;
+      font-size: 14px;
     }
 
     footer {
-      margin-top: 30px;
       background: #075e3b;
       color: white;
       text-align: center;
-      padding: 22px;
-      font-size: 14px;
+      padding: 24px 15px;
+      margin-top: 20px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 14px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .search {
+        flex-direction: column;
+      }
+
+      .search button {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -128,26 +207,25 @@
 <body>
 
   <header>
-    <h1>ABTR</h1>
-    <p>ABUL-TURAB Online Market</p>
+    <div class="logo">ABTR</div>
+    <a href="#" class="signin">Sign in</a>
   </header>
 
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Fashion</a>
-    <a href="#">Phone Accessories</a>
-    <a href="#">Health Products</a>
-  </nav>
-
   <section class="hero">
-    <h2>Kasuwar Aminci da Riba</h2>
+
+    <h1>ABUL-TURAB Online Market</h1>
 
     <p>
+      Kasuwar Aminci da Riba.
       Shop and sell across Nigeria and West Africa
-      with trust, safety, and profit.
+      with trust, safety and profit.
     </p>
 
-    <a href="#" class="button">Start Shopping</a>
+    <div class="search">
+      <input type="text" placeholder="Search products...">
+      <button>Search</button>
+    </div>
+
   </section>
 
   <section class="categories">
@@ -167,16 +245,16 @@
       <div class="category">
         <h3>📱 Phone Accessories</h3>
         <p>
-          Phone accessories, repair items
-          and useful mobile products.
+          Phone accessories and mobile
+          repair products.
         </p>
       </div>
 
       <div class="category">
         <h3>🏥 Health Products</h3>
         <p>
-          Quality health products from trusted
-          sellers.
+          Quality health products from
+          trusted sellers.
         </p>
       </div>
 
@@ -184,10 +262,45 @@
 
   </section>
 
+  <section class="products">
+
+    <h2>Featured Products</h2>
+
+    <div class="product-grid">
+
+      <div class="product">
+        <div class="product-image">👳</div>
+        <h3>Jallabiya</h3>
+        <div class="price">₦25,000</div>
+        <a href="#" class="whatsapp">Order on WhatsApp</a>
+      </div>
+
+      <div class="product">
+        <div class="product-image">⌚</div>
+        <h3>Wrist Watch</h3>
+        <div class="price">₦18,000</div>
+        <a href="#" class="whatsapp">Order on WhatsApp</a>
+      </div>
+
+      <div class="product">
+        <div class="product-image">📱</div>
+        <h3>Phone Accessories</h3>
+        <div class="price">₦8,000</div>
+        <a href="#" class="whatsapp">Order on WhatsApp</a>
+      </div>
+
+    </div>
+
+  </section>
+
   <footer>
-    © 2026 ABTR – ABUL-TURAB Online Market
+
+    <strong>ABTR – ABUL-TURAB Online Market</strong>
     <br>
     Kasuwar Aminci da Riba
+    <br>
+    Nigeria & West Africa
+
   </footer>
 
 </body>
