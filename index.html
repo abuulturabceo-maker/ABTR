@@ -14,26 +14,26 @@
 }
 
 body{
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   background:#f5f7f5;
   color:#123b2a;
 }
 
 header{
-  background:#075e3b;
+  background:#087f3e;
   color:white;
-  padding:16px;
+  padding:15px 6%;
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:1000;
+  box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
 
-.header-top{
+.navbar{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  max-width:1100px;
-  margin:auto;
+  gap:20px;
 }
 
 .logo{
@@ -45,154 +45,144 @@ header{
   color:#ffd700;
 }
 
-.signin{
+.nav-links{
+  display:flex;
+  gap:20px;
+  list-style:none;
+}
+
+.nav-links a{
   color:white;
   text-decoration:none;
-  border:1px solid rgba(255,255,255,.6);
-  padding:8px 14px;
-  border-radius:7px;
-  font-size:14px;
-}
-
-.search{
-  max-width:1100px;
-  margin:14px auto 0;
-  display:flex;
-}
-
-.search input{
-  width:100%;
-  padding:13px;
-  border:none;
-  border-radius:8px 0 0 8px;
-  font-size:15px;
-  outline:none;
-}
-
-.search button{
-  border:none;
-  background:#ffd700;
-  color:#123b2a;
-  padding:0 18px;
-  border-radius:0 8px 8px 0;
-  font-size:20px;
-}
-
-nav{
-  background:white;
-  padding:13px 10px;
-  overflow-x:auto;
-  white-space:nowrap;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-nav a{
-  color:#075e3b;
-  text-decoration:none;
-  margin:0 12px;
   font-weight:bold;
-  font-size:14px;
+}
+
+.menu-btn{
+  display:none;
+  font-size:25px;
+  cursor:pointer;
 }
 
 .hero{
-  background:linear-gradient(135deg,#e9f7ef,#fff);
+  background:linear-gradient(135deg,#087f3e,#0ba653);
+  color:white;
+  padding:55px 6%;
   text-align:center;
-  padding:45px 20px;
 }
 
 .hero h1{
-  font-size:31px;
-  margin-bottom:10px;
+  font-size:42px;
+  margin-bottom:15px;
 }
 
 .hero h1 span{
-  color:#075e3b;
-}
-
-.hero h2{
-  font-size:21px;
-  margin-bottom:12px;
+  color:#ffd700;
 }
 
 .hero p{
-  max-width:650px;
-  margin:auto;
-  line-height:1.7;
-  color:#555;
+  font-size:18px;
+  margin-bottom:25px;
 }
 
-.hero-button{
+.hero-btn{
   display:inline-block;
-  margin-top:22px;
-  background:#075e3b;
-  color:white;
+  background:#ffd700;
+  color:#123b2a;
   padding:13px 25px;
-  border-radius:8px;
+  border-radius:30px;
   text-decoration:none;
   font-weight:bold;
 }
 
-.container{
-  max-width:1100px;
+.search-area{
+  padding:25px 6%;
+  background:white;
+}
+
+.search-box{
+  max-width:700px;
   margin:auto;
-  padding:30px 16px;
+  display:flex;
+}
+
+.search-box input{
+  width:100%;
+  padding:15px;
+  border:1px solid #ccc;
+  border-radius:10px 0 0 10px;
+  font-size:16px;
+}
+
+.search-box button{
+  padding:15px 20px;
+  border:0;
+  background:#087f3e;
+  color:white;
+  border-radius:0 10px 10px 0;
+  cursor:pointer;
+}
+
+.section{
+  padding:40px 6%;
 }
 
 .section-title{
   text-align:center;
-  margin-bottom:22px;
-  font-size:24px;
+  margin-bottom:25px;
+  font-size:28px;
 }
 
-.category-grid{
+.categories{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:15px;
+  gap:20px;
 }
 
 .category{
   background:white;
-  padding:25px 15px;
+  padding:30px 20px;
+  border-radius:18px;
   text-align:center;
-  border-radius:12px;
-  box-shadow:0 3px 12px rgba(0,0,0,.07);
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.category:hover{
+  transform:translateY(-5px);
 }
 
 .category .icon{
-  font-size:38px;
-  margin-bottom:10px;
+  font-size:50px;
+  margin-bottom:15px;
 }
 
 .category h3{
-  margin-bottom:7px;
-}
-
-.category p{
-  color:#666;
-  font-size:13px;
-  line-height:1.5;
+  margin-bottom:8px;
 }
 
 .products{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:18px;
+  gap:20px;
 }
 
 .product{
   background:white;
-  border-radius:12px;
+  border-radius:15px;
   overflow:hidden;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  transition:.3s;
 }
 
-.product-image{
-  height:170px;
-  background:#e9f7ef;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:65px;
+.product:hover{
+  transform:translateY(-5px);
+}
+
+.product img{
+  width:100%;
+  height:210px;
+  object-fit:cover;
 }
 
 .product-info{
@@ -200,126 +190,127 @@ nav a{
 }
 
 .product-info h3{
-  font-size:16px;
-  margin-bottom:7px;
-}
-
-.product-info p{
-  color:#777;
-  font-size:13px;
   margin-bottom:8px;
 }
 
 .price{
-  color:#075e3b;
+  color:#087f3e;
+  font-size:20px;
   font-weight:bold;
-  font-size:17px;
   margin-bottom:12px;
 }
 
-.order{
+.order-btn{
   display:block;
   text-align:center;
-  background:#075e3b;
+  background:#087f3e;
   color:white;
-  padding:10px;
-  border-radius:7px;
+  padding:11px;
+  border-radius:8px;
   text-decoration:none;
-  font-size:14px;
   font-weight:bold;
 }
 
-.features{
-  background:#075e3b;
-  color:white;
-  margin-top:15px;
+.about{
+  background:white;
+  border-radius:18px;
+  padding:30px;
+  line-height:1.8;
+  text-align:center;
 }
 
-.feature-grid{
+.features{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
-  text-align:center;
 }
 
 .feature{
-  padding:20px 10px;
+  background:white;
+  padding:25px;
+  text-align:center;
+  border-radius:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,.07);
 }
 
 .feature-icon{
-  font-size:30px;
-  margin-bottom:8px;
-}
-
-.feature h3{
-  margin-bottom:5px;
-}
-
-.feature p{
-  font-size:13px;
-  opacity:.9;
+  font-size:40px;
+  margin-bottom:10px;
 }
 
 footer{
-  background:#063d28;
+  background:#123b2a;
   color:white;
+  padding:35px 6%;
   text-align:center;
-  padding:25px 15px;
-  line-height:1.7;
 }
 
-footer strong{
+footer h2{
   color:#ffd700;
+  margin-bottom:10px;
+}
+
+footer p{
+  margin:8px 0;
+}
+
+.footer-bottom{
+  margin-top:20px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.2);
 }
 
 @media(max-width:800px){
+
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:65px;
+    left:0;
+    right:0;
+    background:#087f3e;
+    flex-direction:column;
+    padding:20px;
+    text-align:center;
+  }
+
+  .nav-links.active{
+    display:flex;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .hero h1{
+    font-size:32px;
+  }
+
+  .categories{
+    grid-template-columns:1fr;
+  }
+
   .products{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .category-grid{
-    grid-template-columns:1fr;
-  }
-
-  .feature-grid{
+  .features{
     grid-template-columns:1fr;
   }
 }
 
 @media(max-width:500px){
-  .hero h1{
-    font-size:27px;
-  }
-
-  .hero h2{
-    font-size:18px;
-  }
 
   .products{
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
+    grid-template-columns:1fr;
   }
 
-  .product-image{
-    height:130px;
-    font-size:50px;
+  .hero{
+    padding:40px 5%;
   }
 
-  .product-info{
-    padding:11px;
-  }
-
-  .product-info h3{
-    font-size:14px;
-  }
-
-  .price{
-    font-size:15px;
-  }
-
-  .order{
-    font-size:12px;
-    padding:9px 5px;
+  .hero h1{
+    font-size:28px;
   }
 }
 </style>
@@ -328,68 +319,286 @@ footer strong{
 <body>
 
 <header>
-  <div class="header-top">
-    <div class="logo">ABTR<span>®</span></div>
-    <a href="#" class="signin">Sign in</a>
-  </div>
+  <div class="navbar">
 
-  <div class="search">
-    <input type="search" placeholder="Search products...">
-    <button>🔎</button>
+    <div class="logo">
+      ABTR <span>🛍️</span>
+    </div>
+
+    <div class="menu-btn" onclick="toggleMenu()">
+      ☰
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
   </div>
 </header>
 
-<nav>
-  <a href="#">Home</a>
-  <a href="#fashion">Fashion</a>
-  <a href="#phones">Phone Accessories</a>
-  <a href="#health">Health Products</a>
-  <a href="#products">Products</a>
-</nav>
 
-<section class="hero">
-  <h1>Welcome to <span>ABTR</span></h1>
-  <h2>ABUL-TURAB Online Market</h2>
+<section class="hero" id="home">
+
+  <h1>
+    Welcome to <span>ABTR</span>
+  </h1>
 
   <p>
-    Kasuwar Aminci da Riba.
-    Shop and sell across Nigeria and West Africa
-    with trust, safety and profit.
+    ABUL-TURAB Online Market – Kasuwar Aminci da Riba
   </p>
 
-  <a href="#products" class="hero-button">Start Shopping 🛍️</a>
+  <p>
+    Shop and sell across Nigeria and West Africa with trust, safety and profit.
+  </p>
+
+  <a href="#products" class="hero-btn">
+    🛒 Start Shopping
+  </a>
+
 </section>
 
-<section class="container">
 
-  <h2 class="section-title">Shop by Category</h2>
+<section class="search-area">
 
-  <div class="category-grid">
+  <div class="search-box">
 
-    <div class="category" id="fashion">
-      <div class="icon">👗</div>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search products..."
+      onkeyup="searchProducts()"
+    >
+
+    <button>
+      🔍 Search
+    </button>
+
+  </div>
+
+</section>
+
+
+<section class="section" id="categories">
+
+  <h2 class="section-title">
+    Shop by Category
+  </h2>
+
+  <div class="categories">
+
+    <div class="category">
+      <div class="icon">👕</div>
       <h3>Fashion</h3>
-      <p>
-        Jallabiya, Abaya, shoes, watches,
-        hats and other fashion products.
-      </p>
+      <p>Jallabiya, Abaya, shoes, watches and more.</p>
     </div>
 
-    <div class="category" id="phones">
+    <div class="category">
       <div class="icon">📱</div>
       <h3>Phone Accessories</h3>
-      <p>
-        Phone accessories, chargers,
-        cables and useful mobile products.
-      </p>
+      <p>Chargers, cables, cases and useful phone items.</p>
     </div>
 
-    <div class="category" id="health">
-      <div class="icon">🏥</div>
+    <div class="category">
+      <div class="icon">💊</div>
       <h3>Health Products</h3>
+      <p>Quality health products from trusted sources.</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section" id="products">
+
+  <h2 class="section-title">
+    Featured Products
+  </h2>
+
+  <div class="products" id="productList">
+
+    <div class="product">
+
+      <img
+        src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80"
+        alt="Fashion"
+      >
+
+      <div class="product-info">
+
+        <h3>Elegant Fashion</h3>
+
+        <p class="price">
+          ₦25,000
+        </p>
+
+        <a
+          class="order-btn"
+          href="https://wa.me/"
+          target="_blank"
+        >
+          📲 Order on WhatsApp
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="product">
+
+      <img
+        src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=800&q=80"
+        alt="Clothing"
+      >
+
+      <div class="product-info">
+
+        <h3>Premium Outfit</h3>
+
+        <p class="price">
+          ₦30,000
+        </p>
+
+        <a
+          class="order-btn"
+          href="https://wa.me/"
+          target="_blank"
+        >
+          📲 Order on WhatsApp
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="product">
+
+      <img
+        src="https://images.unsplash.com/photo-1605236453806-6ff36851218e?auto=format&fit=crop&w=800&q=80"
+        alt="Phone accessories"
+      >
+
+      <div class="product-info">
+
+        <h3>Phone Accessories</h3>
+
+        <p class="price">
+          ₦8,500
+        </p>
+
+        <a
+          class="order-btn"
+          href="https://wa.me/"
+          target="_blank"
+        >
+          📲 Order on WhatsApp
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="product">
+
+      <img
+        src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80"
+        alt="Health products"
+      >
+
+      <div class="product-info">
+
+        <h3>Health Products</h3>
+
+        <p class="price">
+          ₦12,000
+        </p>
+
+        <a
+          class="order-btn"
+          href="https://wa.me/"
+          target="_blank"
+        >
+          📲 Order on WhatsApp
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section" id="about">
+
+  <h2 class="section-title">
+    About ABTR
+  </h2>
+
+  <div class="about">
+
+    <p>
+      <strong>ABTR – ABUL-TURAB Online Market</strong>
+      is an African e-commerce platform connecting buyers
+      and sellers across Nigeria and West Africa.
+    </p>
+
+    <br>
+
+    <p>
+      Our goal is to make online shopping simple, reliable
+      and beneficial for everyone.
+    </p>
+
+    <br>
+
+    <p>
+      <strong>Our Promise:</strong>
+      Trust • Safety • Profit
+    </p>
+
+  </div>
+
+</section>
+
+
+<section class="section">
+
+  <h2 class="section-title">
+    Why Choose ABTR?
+  </h2>
+
+  <div class="features">
+
+    <div class="feature">
+      <div class="feature-icon">🤝</div>
+      <h3>Trust</h3>
       <p>
-        Quality health products from
-        trusted sellers.
+        We connect buyers and sellers with confidence.
+      </p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Safety</h3>
+      <p>
+        We aim to make online shopping safer and easier.
+      </p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">💰</div>
+      <h3>Profit</h3>
+      <p>
+        A marketplace designed to help businesses grow.
       </p>
     </div>
 
@@ -397,117 +606,72 @@ footer strong{
 
 </section>
 
-<section class="container" id="products">
 
-  <h2 class="section-title">Featured Products</h2>
+<footer id="contact">
 
-  <div class="products">
+  <h2>ABTR – ABUL-TURAB Online Market</h2>
 
-    <div class="product">
-      <div class="product-image">👔</div>
+  <p>
+    Kasuwar Aminci da Riba
+  </p>
 
-      <div class="product-info">
-        <h3>Premium Jallabiya</h3>
-        <p>Fashion • Quality wear</p>
-        <div class="price">₦25,000</div>
+  <p>
+    🇳🇬 Nigeria • West Africa
+  </p>
 
-        <a class="order"
-           href="https://wa.me/2340000000000"
-           target="_blank">
-           Order on WhatsApp
-        </a>
-      </div>
-    </div>
+  <p>
+    📲 WhatsApp Orders Available
+  </p>
 
-    <div class="product">
-      <div class="product-image">⌚</div>
-
-      <div class="product-info">
-        <h3>Classic Watch</h3>
-        <p>Fashion • Men's watch</p>
-        <div class="price">₦18,000</div>
-
-        <a class="order"
-           href="https://wa.me/2340000000000"
-           target="_blank">
-           Order on WhatsApp
-        </a>
-      </div>
-    </div>
-
-    <div class="product">
-      <div class="product-image">🎧</div>
-
-      <div class="product-info">
-        <h3>Wireless Earbuds</h3>
-        <p>Phone Accessories</p>
-        <div class="price">₦12,000</div>
-
-        <a class="order"
-           href="https://wa.me/2340000000000"
-           target="_blank">
-           Order on WhatsApp
-        </a>
-      </div>
-    </div>
-
-    <div class="product">
-      <div class="product-image">📱</div>
-
-      <div class="product-info">
-        <h3>Phone Charger</h3>
-        <p>Fast charging accessory</p>
-        <div class="price">₦7,500</div>
-
-        <a class="order"
-           href="https://wa.me/2340000000000"
-           target="_blank">
-           Order on WhatsApp
-        </a>
-      </div>
-    </div>
-
+  <div class="footer-bottom">
+    © 2026 ABTR Online Market. All Rights Reserved.
   </div>
 
-</section>
-
-<section class="features">
-
-  <div class="container">
-
-    <div class="feature-grid">
-
-      <div class="feature">
-        <div class="feature-icon">🔐</div>
-        <h3>Trusted</h3>
-        <p>Safe and reliable marketplace.</p>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">🚚</div>
-        <h3>Delivery</h3>
-        <p>Serving Nigeria and West Africa.</p>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">💰</div>
-        <h3>Profit</h3>
-        <p>Kasuwar Aminci da Riba.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<footer>
-  <strong>ABTR – ABUL-TURAB Online Market</strong>
-  <br>
-  Kasuwar Aminci da Riba
-  <br>
-  © 2026 ABTR. All Rights Reserved.
 </footer>
 
+
+<script>
+
+function toggleMenu(){
+
+  document
+    .getElementById("navLinks")
+    .classList
+    .toggle("active");
+
+}
+
+
+function searchProducts(){
+
+  let input =
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase();
+
+  let products =
+    document
+      .querySelectorAll(".product");
+
+  products.forEach(function(product){
+
+    let text =
+      product
+        .innerText
+        .toLowerCase();
+
+    if(text.includes(input)){
+      product.style.display = "";
+    }else{
+      product.style.display = "none";
+    }
+
+  });
+
+}
+
+</script>
+
 </body>
-</html>
+    </html>
