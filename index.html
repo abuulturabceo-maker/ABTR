@@ -435,9 +435,7 @@ footer p{
         <p class="price">
           ₦25,000
         </p>
-class="order-btn"
-href="https://wa.me/2347020302336"
-target="_blank"
+href="javascript:chooseWhatsApp()"
 >
 📲 Order on WhatsApp
       </a>
@@ -474,9 +472,7 @@ target="_blank"
         </p>
 
         <a
-          class="order-btn"
-href="https://wa.me/2347020302336"218910605267
-target="_blank"
+          href="javascript:chooseWhatsApp()"
 >
 📲 Order on WhatsApp
         </a>
@@ -506,9 +502,7 @@ target="_blank"
            45000  
         </p>
         <a
-      class="order-btn"
-href="https://wa.me/2347020302336"218910605267
-target="_blank"
+      href="javascript:chooseWhatsApp()"
 >
 📲 Order on WhatsApp
       </a>
@@ -537,12 +531,7 @@ target="_blank"
         </p>
 
         <a
-          class="order-btn"
-href="https://wa.me/2347020302336"218910605267
-target="_blank"
->
-📲 Order on WhatsApp
-        </a>
+          href="javascript:chooseWhatsApp()"
           
         
         >
@@ -690,7 +679,19 @@ function searchProducts(){
 
   });
 
-}
+}function chooseWhatsApp() {
+  let choice = confirm(
+    "Zaɓi WhatsApp:\n\n" +
+    "OK = 🇳🇬 Nigeria\n" +
+    "Cancel = 🇱🇾 Libya"
+  );
+
+  if (choice) {
+    window.open("https://wa.me/2347020302336", "_blank");
+  } else {
+    window.open("https://wa.me/218910605267", "_blank");
+  }
+  }
 
 </script>
 
