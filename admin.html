@@ -1,1 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>ABTR Admin – Product Manager</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f5;
+      color: #123b2a;
+    }
+
+    header {
+      background: #087f3e;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin-bottom: 6px;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 900px;
+      margin: 30px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.08);
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 14px 0 7px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+      background: #fafafa;
+    }
+
+    .btn {
+      border: none;
+      padding: 13px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+      margin-top: 18px;
+    }
+
+    .add-btn {
+      background: #087f3e;
+      color: white;
+      width: 100%;
+    }
+
+    .clear-btn {
+      background: #ddd;
+      color: #333;
+      width: 100%;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 15px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 8px;
+    }
+
+    .price {
+      color: #087f3e;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .category {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .delete-btn {
+      width: 100%;
+      background: #c62828;
+      color: white;
+      border: none;
+      padding: 11px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .notice {
+      background: #fff8d8;
+      border-left: 5px solid #e0b000;
+      padding: 15px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      border-radius: 7px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 10px;
+      color: white;
+      text-decoration: none;
+    }
+
+    #preview {
+      display: none;
+      width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+
+    @media(max-width:600px) {
+      .container {
+        width: 94%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <h1>ABTR 🛍️</h1>
+
+  <p>ABUL-TURAB Online Market</p>
+
+  <a href="index.html" class="back">
+    ← Back to Website
+  </a>
+
+</header>
+
+
+<div class="container">
+
+  <div class="notice">
+
+    <strong>ABTR Product Manager</strong>
+
+    <br>
+
+    Wannan shafin na taimaka maka wajen shirya products:
+    saka suna, farashi, category, bayani da hoto.
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>➕ Add New Product</h2>
+
+    <form id="productForm">
+
+      <label>
+        Product Name
+      </label>
+
+      <input
+        type="text"
+        id="productName"
+        placeholder="Example: Premium Jallabiya"
+        required
+      >
+
+
+      <label>
+        Price
+      </label>
+
+      <input
+        type="number"
+        id="productPrice"
+        placeholder="25000"
+        required
+      >
+
+
+      <label>
+        Category
+      </label>
+
+      <select id="productCategory" required>
+
+        <option value="">
+          Select Category
+        </option>
+
+        <option value="Fashion">
+          Fashion
+        </option>
+
+        <option value="Phone Accessories">
+          Phone Accessories
+        </option>
+
+        <option value="Health Products">
+          Health Products
+        </option>
+
+      </select>
+
+
+      <label>
+        Product Description
+      </label>
+
+      <textarea
+        id="productDescription"
+        placeholder="Write a short description..."
+      ></textarea>
+
+
+      <label>
+        Product Picture
+      </label>
+
+      <input
+        type="file"
+        id="productImage"
+        accept="image/*"
+        required
+      >
+
+      <img id="preview" alt="Product preview">
+
+
+      <button
+        type="submit"
+        class="btn add-btn"
+      >
+        ➕ Add Product
+      </button>
+
+
+      <button
+        type="button"
+        class="btn clear-btn"
+        onclick="clearForm()"
+      >
+        Clear
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>
+      🛍️ Products
+    </h2>
+
+    <div
+      id="productList"
+      class="product-list"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+let products =
+  JSON.parse(
+    localStorage.getItem("abtrProducts")
+  ) || [];
+
+
+const imageInput =
+  document.getElementById("productImage");
+
+
+const preview =
+  document.getElementById("preview");
+
+
+imageInput.addEventListener(
+  "change",
+  function () {
+
+    const file =
+      this.files[0];
+
+    if (!file) {
+      preview.style.display = "none";
+      return;
+    }
+
+    const reader =
+      new FileReader();
+
+    reader.onload =
+      function (event) {
+
+        preview.src =
+          event.target.result;
+
+        preview.style.display =
+          "block";
+
+      };
+
+    reader.readAsDataURL(file);
+
+  }
+);
+
+
+document
+  .getElementById("productForm")
+  .addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+
+      const name =
+        document
+          .getElementById("productName")
+          .value;
+
+
+      const price =
+        document
+          .getElementById("productPrice")
+          .value;
+
+
+      const category =
+        document
+          .getElementById("productCategory")
+          .value;
+
+
+      const description =
+        document
+          .getElementById("productDescription")
+          .value;
+
+
+      const file =
+        document
+          .getElementById("productImage")
+          .files[0];
+
+
+      if (!file) {
+
+        alert(
+          "Please choose a product picture."
+        );
+
+        return;
+
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function (event) {
+
+          const product = {
+
+            id: Date.now(),
+
+            name: name,
+
+            price: price,
+
+            category: category,
+
+            description: description,
+
+            image: event.target.result
+
+          };
+
+
+          products.push(product);
+
+
+          localStorage.setItem(
+            "abtrProducts",
+            JSON.stringify(products)
+          );
+
+
+          renderProducts();
+
+
+          clearForm();
+
+
+          alert(
+            "Product added successfully!"
+          );
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+
+function renderProducts() {
+
+  const list =
+    document.getElementById(
+      "productList"
+    );
+
+
+  list.innerHTML = "";
+
+
+  if (products.length === 0) {
+
+    list.innerHTML =
+      "<p>No products added yet.</p>";
+
+    return;
+
+  }
+
+
+  products.forEach(
+    function (product) {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "product";
+
+
+      card.innerHTML = `
+
+        <img
+          src="${product.image}"
+          alt="${product.name}"
+        >
+
+        <div class="product-info">
+
+          <h3>
+            ${product.name}
+          </h3>
+
+          <div class="price">
+            ₦${Number(product.price).toLocaleString()}
+          </div>
+
+          <div class="category">
+            ${product.category}
+          </div>
+
+          <p>
+            ${product.description || ""}
+          </p>
+
+          <button
+            class="delete-btn"
+            onclick="deleteProduct(${product.id})"
+          >
+            🗑️ Delete Product
+          </button>
+
+        </div>
+
+      `;
+
+
+      list.appendChild(card);
+
+    }
+  );
+
+}
+
+
+function deleteProduct(id) {
+
+  const confirmDelete =
+    confirm(
+      "Kana tabbatar da cewa kana son cire wannan product?"
+    );
+
+
+  if (!confirmDelete) {
+    return;
+  }
+
+
+  products =
+    products.filter(
+      function (product) {
+        return product.id !== id;
+      }
+    );
+
+
+  localStorage.setItem(
+    "abtrProducts",
+    JSON.stringify(products)
+  );
+
+
+  renderProducts();
+
+}
+
+
+function clearForm() {
+
+  document
+    .getElementById("productForm")
+    .reset();
+
+
+  preview.style.display =
+    "none";
+
+}
+
+
+renderProducts();
+
+</script>
+
+</body>
+  </html>
