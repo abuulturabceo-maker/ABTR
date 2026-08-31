@@ -1,6 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+  #adminLogin {
+    max-width: 420px;
+    margin: 50px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.10);
+  }
+
+  #adminLogin input {
+    width: 100%;
+    padding: 13px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  #loginBtn {
+    width: 100%;
+    padding: 13px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #087f3e;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #loginMessage {
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  #adminContent {
+    display: none;
+  }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,6 +54,33 @@
     }
 
     body {
+      <div id="adminLogin">
+
+  <h2>🔐 ABTR Admin Login</h2>
+
+  <p>Shiga domin sarrafa kayayyakin ABTR.</p>
+
+  <input
+    type="email"
+    id="adminEmail"
+    placeholder="Admin Email"
+  >
+
+  <input
+    type="password"
+    id="adminPassword"
+    placeholder="Password"
+  >
+
+  <button id="loginBtn">
+    🔑 Login
+  </button>
+
+  <div id="loginMessage"></div>
+
+</div>
+
+<div id="adminContent">
       font-family: Arial, sans-serif;
       background: #f4f7f5;
       color: #123b2a;
