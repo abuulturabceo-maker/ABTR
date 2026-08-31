@@ -1,52 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <style>
-  #adminLogin {
-    max-width: 420px;
-    margin: 50px auto;
-    padding: 25px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.10);
-  }
 
-  #adminLogin input {
-    width: 100%;
-    padding: 13px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-  }
-
-  #loginBtn {
-    width: 100%;
-    padding: 13px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 8px;
-    background: #087f3e;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  #loginMessage {
-    margin-top: 12px;
-    text-align: center;
-  }
-
-  #adminContent {
-    display: none;
-  }
-  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>ABTR Admin – Product Manager</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -54,36 +17,10 @@
     }
 
     body {
-      <div id="adminLogin">
-
-  <h2>🔐 ABTR Admin Login</h2>
-
-  <p>Shiga domin sarrafa kayayyakin ABTR.</p>
-
-  <input
-    type="email"
-    id="adminEmail"
-    placeholder="Admin Email"
-  >
-
-  <input
-    type="password"
-    id="adminPassword"
-    placeholder="Password"
-  >
-
-  <button id="loginBtn">
-    🔑 Login
-  </button>
-
-  <div id="loginMessage"></div>
-
-</div>
-
-<div id="adminContent">
       font-family: Arial, sans-serif;
       background: #f4f7f5;
       color: #123b2a;
+      min-height: 100vh;
     }
 
     header {
@@ -97,10 +34,89 @@
       margin-bottom: 6px;
     }
 
+    .back {
+      display: inline-block;
+      margin-top: 10px;
+      color: white;
+      text-decoration: none;
+    }
+
+    /* LOGIN */
+
+    #adminLogin {
+      width: 92%;
+      max-width: 420px;
+      margin: 50px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.10);
+    }
+
+    #adminLogin h2 {
+      margin-bottom: 10px;
+    }
+
+    #adminLogin p {
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    #adminLogin input {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    #loginBtn {
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #087f3e;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #loginMessage {
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ADMIN */
+
+    #adminContent {
+      display: none;
+    }
+
     .container {
       width: 92%;
       max-width: 900px;
       margin: 30px auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .logout-btn {
+      background: #c62828;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     .card {
@@ -113,6 +129,15 @@
 
     .card h2 {
       margin-bottom: 20px;
+    }
+
+    .notice {
+      background: #fff8d8;
+      border-left: 5px solid #e0b000;
+      padding: 15px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      border-radius: 7px;
     }
 
     label {
@@ -215,22 +240,6 @@
       margin-top: 10px;
     }
 
-    .notice {
-      background: #fff8d8;
-      border-left: 5px solid #e0b000;
-      padding: 15px;
-      line-height: 1.6;
-      margin-bottom: 20px;
-      border-radius: 7px;
-    }
-
-    .back {
-      display: inline-block;
-      margin-top: 10px;
-      color: white;
-      text-decoration: none;
-    }
-
     #preview {
       display: none;
       width: 100%;
@@ -241,14 +250,25 @@
     }
 
     @media(max-width:600px) {
+
       .container {
         width: 94%;
       }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
     }
+
   </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -263,228 +283,393 @@
 </header>
 
 
-<div class="container">
+<!-- LOGIN -->
 
-  <div class="notice">
+<div id="adminLogin">
 
-    <strong>ABTR Product Manager</strong>
+  <h2>🔐 ABTR Admin Login</h2>
 
-    <br>
+  <p>
+    Shiga domin sarrafa kayayyakin ABTR.
+  </p>
 
-    Wannan shafin na taimaka maka wajen shirya products:
-    saka suna, farashi, category, bayani da hoto.
+  <input
+    type="email"
+    id="adminEmail"
+    placeholder="Admin Email"
+    autocomplete="email"
+  >
 
-  </div>
+  <input
+    type="password"
+    id="adminPassword"
+    placeholder="Password"
+    autocomplete="current-password"
+  >
 
+  <button id="loginBtn">
+    🔑 Login
+  </button>
 
-  <div class="card">
+  <div id="loginMessage"></div>
 
-    <h2>➕ Add New Product</h2>
-
-    <form id="productForm">
-
-      <label>
-        Product Name
-      </label>
-
-      <input
-        type="text"
-        id="productName"
-        placeholder="Example: Premium Jallabiya"
-        required
-      >
-
-
-      <label>
-        Price
-      </label>
-
-      <input
-        type="number"
-        id="productPrice"
-        placeholder="25000"
-        required
-      >
+</div>
 
 
-      <label>
-        Category
-      </label>
+<!-- ADMIN CONTENT -->
 
-      <select id="productCategory" required>
+<div id="adminContent">
 
-        <option value="">
-          Select Category
-        </option>
+  <div class="container">
 
-        <option value="Fashion">
-          Fashion
-        </option>
+    <div class="topbar">
 
-        <option value="Phone Accessories">
-          Phone Accessories
-        </option>
-
-        <option value="Health Products">
-          Health Products
-        </option>
-
-      </select>
-
-
-      <label>
-        Product Description
-      </label>
-
-      <textarea
-        id="productDescription"
-        placeholder="Write a short description..."
-      ></textarea>
-
-
-      <label>
-        Product Picture
-      </label>
-
-      <input
-        type="file"
-        id="productImage"
-        accept="image/*"
-        required
-      >
-
-      <img id="preview" alt="Product preview">
-
+      <h2>ABTR Product Manager</h2>
 
       <button
-        type="submit"
-        class="btn add-btn"
+        class="logout-btn"
+        id="logoutBtn"
       >
-        ➕ Add Product
+        🚪 Logout
       </button>
 
-
-      <button
-        type="button"
-        class="btn clear-btn"
-        onclick="clearForm()"
-      >
-        Clear
-      </button>
-
-    </form>
-
-  </div>
+    </div>
 
 
-  <div class="card">
+    <div class="notice">
 
-    <h2>
-      🛍️ Products
-    </h2>
+      <strong>Admin Panel</strong>
 
-    <div
-      id="productList"
-      class="product-list"
-    ></div>
+      <br>
+
+      Wannan shafin na ABTR ne domin sarrafa
+      kayayyaki.
+
+    </div>
+
+
+    <!-- ADD PRODUCT -->
+
+    <div class="card">
+
+      <h2>➕ Add New Product</h2>
+
+      <form id="productForm">
+
+        <label>
+          Product Name
+        </label>
+
+        <input
+          type="text"
+          id="productName"
+          placeholder="Example: Premium Jallabiya"
+          required
+        >
+
+
+        <label>
+          Price
+        </label>
+
+        <input
+          type="number"
+          id="productPrice"
+          placeholder="25000"
+          min="0"
+          required
+        >
+
+
+        <label>
+          Category
+        </label>
+
+        <select
+          id="productCategory"
+          required
+        >
+
+          <option value="">
+            Select Category
+          </option>
+
+          <option value="Fashion">
+            Fashion
+          </option>
+
+          <option value="Phone Accessories">
+            Phone Accessories
+          </option>
+
+          <option value="Health Products">
+            Health Products
+          </option>
+
+        </select>
+
+
+        <label>
+          Product Description
+        </label>
+
+        <textarea
+          id="productDescription"
+          placeholder="Write a short description..."
+        ></textarea>
+
+
+        <label>
+          Product Picture
+        </label>
+
+        <input
+          type="file"
+          id="productImage"
+          accept="image/*"
+          required
+        >
+
+        <img
+          id="preview"
+          alt="Product preview"
+        >
+
+
+        <button
+          type="submit"
+          class="btn add-btn"
+        >
+          ➕ Add Product
+        </button>
+
+
+        <button
+          type="button"
+          class="btn clear-btn"
+          id="clearBtn"
+        >
+          Clear
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+
+    <div class="card">
+
+      <h2>
+        🛍️ Products
+      </h2>
+
+      <div
+        id="productList"
+        class="product-list"
+      ></div>
+
+    </div>
 
   </div>
 
 </div>
 
 
-<script>
+<script type="module">
 
-let products =
-  JSON.parse(
-    localStorage.getItem("abtrProducts")
-  ) || [];
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-
-const imageInput =
-  document.getElementById("productImage");
-
-
-const preview =
-  document.getElementById("preview");
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  }
+  from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-imageInput.addEventListener(
-  "change",
-  function () {
+  const firebaseConfig = {
 
-    const file =
-      this.files[0];
+    apiKey:
+      "AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
 
-    if (!file) {
-      preview.style.display = "none";
-      return;
+    authDomain:
+      "abtr-online-market.firebaseapp.com",
+
+    projectId:
+      "abtr-online-market",
+
+    storageBucket:
+      "abtr-online-market.firebasestorage.app",
+
+    messagingSenderId:
+      "24953738228",
+
+    appId:
+      "1:24953738228:web:f4d45ec73a847e1c46dfa1",
+
+    measurementId:
+      "G-M2SPBLPXVN"
+
+  };
+
+
+  const app =
+    initializeApp(firebaseConfig);
+
+  const auth =
+    getAuth(app);
+
+
+  const adminLogin =
+    document.getElementById("adminLogin");
+
+  const adminContent =
+    document.getElementById("adminContent");
+
+  const loginBtn =
+    document.getElementById("loginBtn");
+
+  const logoutBtn =
+    document.getElementById("logoutBtn");
+
+  const loginMessage =
+    document.getElementById("loginMessage");
+
+
+  /* LOGIN */
+
+  loginBtn.addEventListener(
+    "click",
+    async function () {
+
+      const email =
+        document
+          .getElementById("adminEmail")
+          .value
+          .trim();
+
+      const password =
+        document
+          .getElementById("adminPassword")
+          .value;
+
+
+      if (!email || !password) {
+
+        loginMessage.textContent =
+          "⚠️ Saka email da password.";
+
+        return;
+      }
+
+
+      loginMessage.textContent =
+        "⏳ Ana shiga...";
+
+
+      try {
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        loginMessage.textContent =
+          "";
+
+      }
+
+      catch (error) {
+
+        loginMessage.textContent =
+          "❌ Email ko password ba daidai ba ne.";
+
+      }
+
     }
+  );
 
-    const reader =
-      new FileReader();
 
-    reader.onload =
-      function (event) {
+  /* LOGOUT */
 
-        preview.src =
-          event.target.result;
+  logoutBtn.addEventListener(
+    "click",
+    async function () {
 
-        preview.style.display =
+      await signOut(auth);
+
+    }
+  );
+
+
+  /* AUTH STATE */
+
+  onAuthStateChanged(
+    auth,
+    function (user) {
+
+      if (user) {
+
+        adminLogin.style.display =
+          "none";
+
+        adminContent.style.display =
           "block";
 
-      };
+      }
 
-    reader.readAsDataURL(file);
+      else {
 
-  }
-);
+        adminLogin.style.display =
+          "block";
 
+        adminContent.style.display =
+          "none";
 
-document
-  .getElementById("productForm")
-  .addEventListener(
-    "submit",
-    function (event) {
+      }
 
-      event.preventDefault();
-
-
-      const name =
-        document
-          .getElementById("productName")
-          .value;
+    }
+  );
 
 
-      const price =
-        document
-          .getElementById("productPrice")
-          .value;
+  /* LOCAL PRODUCT TEST */
+
+  let products =
+    JSON.parse(
+      localStorage.getItem(
+        "abtrProducts"
+      )
+    ) || [];
 
 
-      const category =
-        document
-          .getElementById("productCategory")
-          .value;
+  const imageInput =
+    document.getElementById(
+      "productImage"
+    );
+
+  const preview =
+    document.getElementById(
+      "preview"
+    );
 
 
-      const description =
-        document
-          .getElementById("productDescription")
-          .value;
-
+  imageInput.addEventListener(
+    "change",
+    function () {
 
       const file =
-        document
-          .getElementById("productImage")
-          .files[0];
+        this.files[0];
 
 
       if (!file) {
 
-        alert(
-          "Please choose a product picture."
-        );
+        preview.style.display =
+          "none";
 
         return;
 
@@ -498,41 +683,11 @@ document
       reader.onload =
         function (event) {
 
-          const product = {
+          preview.src =
+            event.target.result;
 
-            id: Date.now(),
-
-            name: name,
-
-            price: price,
-
-            category: category,
-
-            description: description,
-
-            image: event.target.result
-
-          };
-
-
-          products.push(product);
-
-
-          localStorage.setItem(
-            "abtrProducts",
-            JSON.stringify(products)
-          );
-
-
-          renderProducts();
-
-
-          clearForm();
-
-
-          alert(
-            "Product added successfully!"
-          );
+          preview.style.display =
+            "block";
 
         };
 
@@ -543,212 +698,259 @@ document
   );
 
 
-function renderProducts() {
+  document
+    .getElementById("productForm")
+    .addEventListener(
+      "submit",
+      function (event) {
 
-  const list =
-    document.getElementById(
-      "productList"
-    );
-
-
-  list.innerHTML = "";
+        event.preventDefault();
 
 
-  if (products.length === 0) {
-
-    list.innerHTML =
-      "<p>No products added yet.</p>";
-
-    return;
-
-  }
+        const name =
+          document
+            .getElementById("productName")
+            .value
+            .trim();
 
 
-  products.forEach(
-    function (product) {
-
-      const card =
-        document.createElement(
-          "div"
-        );
-
-      card.className =
-        "product";
+        const price =
+          document
+            .getElementById("productPrice")
+            .value;
 
 
-      card.innerHTML = `
-
-        <img
-          src="${product.image}"
-          alt="${product.name}"
-        >
-
-        <div class="product-info">
-
-          <h3>
-            ${product.name}
-          </h3>
-
-          <div class="price">
-            ₦${Number(product.price).toLocaleString()}
-          </div>
-
-          <div class="category">
-            ${product.category}
-          </div>
-
-          <p>
-            ${product.description || ""}
-          </p>
-
-          <button
-            class="delete-btn"
-            onclick="deleteProduct(${product.id})"
-          >
-            🗑️ Delete Product
-          </button>
-
-        </div>
-
-      `;
+        const category =
+          document
+            .getElementById("productCategory")
+            .value;
 
 
-      list.appendChild(card);
-
-    }
-  );
-
-}
-
-
-function deleteProduct(id) {
-
-  const confirmDelete =
-    confirm(
-      "Kana tabbatar da cewa kana son cire wannan product?"
-    );
+        const description =
+          document
+            .getElementById("productDescription")
+            .value
+            .trim();
 
 
-  if (!confirmDelete) {
-    return;
-  }
+        const file =
+          imageInput.files[0];
 
 
-  products =
-    products.filter(
-      function (product) {
-        return product.id !== id;
+        if (!file) {
+
+          alert(
+            "Please choose a product picture."
+          );
+
+          return;
+
+        }
+
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload =
+          function (event) {
+
+            const product = {
+
+              id: Date.now(),
+
+              name: name,
+
+              price: price,
+
+              category: category,
+
+              description: description,
+
+              image: event.target.result
+
+            };
+
+
+            products.push(product);
+
+
+            localStorage.setItem(
+              "abtrProducts",
+              JSON.stringify(products)
+            );
+
+
+            renderProducts();
+
+            clearForm();
+
+
+            alert(
+              "Product added successfully!"
+            );
+
+          };
+
+
+        reader.readAsDataURL(file);
+
       }
     );
 
 
-  localStorage.setItem(
-    "abtrProducts",
-    JSON.stringify(products)
-  );
+  function renderProducts() {
+
+    const list =
+      document.getElementById(
+        "productList"
+      );
+
+
+    list.innerHTML = "";
+
+
+    if (products.length === 0) {
+
+      list.innerHTML =
+        "<p>No products added yet.</p>";
+
+      return;
+
+    }
+
+
+    products.forEach(
+      function (product) {
+
+        const card =
+          document.createElement(
+            "div"
+          );
+
+
+        card.className =
+          "product";
+
+
+        card.innerHTML = `
+
+          <img
+            src="${product.image}"
+            alt="${product.name}"
+          >
+
+          <div class="product-info">
+
+            <h3>
+              ${product.name}
+            </h3>
+
+            <div class="price">
+              ₦${Number(product.price).toLocaleString()}
+            </div>
+
+            <div class="category">
+              ${product.category}
+            </div>
+
+            <p>
+              ${product.description || ""}
+            </p>
+
+            <button
+              class="delete-btn"
+              data-id="${product.id}"
+            >
+              🗑️ Delete Product
+            </button>
+
+          </div>
+
+        `;
+
+
+        card
+          .querySelector(".delete-btn")
+          .addEventListener(
+            "click",
+            function () {
+
+              deleteProduct(
+                product.id
+              );
+
+            }
+          );
+
+
+        list.appendChild(card);
+
+      }
+    );
+
+  }
+
+
+  function deleteProduct(id) {
+
+    const confirmed =
+      confirm(
+        "Kana tabbatar da cewa kana son cire wannan product?"
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    products =
+      products.filter(
+        function (product) {
+
+          return product.id !== id;
+
+        }
+      );
+
+
+    localStorage.setItem(
+      "abtrProducts",
+      JSON.stringify(products)
+    );
+
+
+    renderProducts();
+
+  }
+
+
+  function clearForm() {
+
+    document
+      .getElementById("productForm")
+      .reset();
+
+
+    preview.style.display =
+      "none";
+
+  }
+
+
+  document
+    .getElementById("clearBtn")
+    .addEventListener(
+      "click",
+      clearForm
+    );
 
 
   renderProducts();
 
-}
-
-
-function clearForm() {
-
-  document
-    .getElementById("productForm")
-    .reset();
-
-
-  preview.style.display =
-    "none";
-
-}
-
-
-renderProducts();
-
 </script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import {
-    getAuth,
-    signInWithEmailAndPassword,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
-    authDomain: "abtr-online-market.firebaseapp.com",
-    projectId: "abtr-online-market",
-    storageBucket: "abtr-online-market.firebasestorage.app",
-    messagingSenderId: "24953738228",
-    appId: "1:24953738228:web:f4d45ec73a847e1c46dfa1",
-    measurementId: "G-M2SPBLPXVN"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  const loginBtn = document.getElementById("loginBtn");
-  const loginMessage = document.getElementById("loginMessage");
-  const adminLogin = document.getElementById("adminLogin");
-  const adminContent = document.getElementById("adminContent");
-
-  loginBtn.addEventListener("click", async () => {
-
-    const email =
-      document.getElementById("adminEmail").value.trim();
-
-    const password =
-      document.getElementById("adminPassword").value;
-
-    if (!email || !password) {
-      loginMessage.textContent =
-        "⚠️ Saka email da password.";
-      return;
-    }
-
-    loginMessage.textContent =
-      "⏳ Ana shiga...";
-
-    try {
-
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-    } catch (error) {
-
-      loginMessage.textContent =
-        "❌ Email ko password ba daidai ba ne.";
-
-    }
-
-  });
-
-
-  onAuthStateChanged(auth, (user) => {
-
-    if (user) {
-
-      adminLogin.style.display = "none";
-      adminContent.style.display = "block";
-
-    } else {
-
-      adminLogin.style.display = "block";
-      adminContent.style.display = "none";
-
-    }
-
-  });</script>
-
-</div>
 
 </body>
-</html>
-
->
+  </html>
