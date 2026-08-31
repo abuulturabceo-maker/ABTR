@@ -602,6 +602,25 @@ function clearForm() {
 renderProducts();
 
 </script>
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
+    authDomain: "abtr-online-market.firebaseapp.com",
+    projectId: "abtr-online-market",
+    storageBucket: "abtr-online-market.firebasestorage.app",
+    messagingSenderId: "24953738228",
+    appId: "1:24953738228:web:f4d45ec73a847e1c46dfa1",
+    measurementId: "G-M2SPBLPXVN"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  console.log("ABTR Firebase connected successfully!");
+</script>
 </body>
   </html>
