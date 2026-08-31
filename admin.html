@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+8<!DOCTYPE html>
 <html lang="en">
 <head>
   <style>
@@ -669,10 +669,13 @@ function clearForm() {
 renderProducts();
 
 </script>
-<!-- Firebase -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
@@ -685,9 +688,64 @@ renderProducts();
   };
 
   const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  const auth = getAuth(app);
 
-  console.log("ABTR Firebase connected successfully!");
+  const loginBtn = document.getElementById("loginBtn");
+  const loginMessage = document.getElementById("loginMessage");
+  const adminLogin = document.getElementById("adminLogin");
+  const adminContent = document.getElementById("adminContent");
+
+  loginBtn.addEventListener("click", async () => {
+
+    const email =
+      document.getElementById("adminEmail").value.trim();
+
+    const password =
+      document.getElementById("adminPassword").value;
+
+    if (!email || !password) {
+      loginMessage.textContent =
+        "⚠️ Saka email da password.";
+      return;
+    }
+
+    loginMessage.textContent =
+      "⏳ Ana shiga...";
+
+    try {
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+    } catch (error) {
+
+      loginMessage.textContent =
+        "❌ Email ko password ba daidai ba ne.";
+
+    }
+
+  });
+
+
+  onAuthStateChanged(auth, (user) => {
+
+    if (user) {
+
+      adminLogin.style.display = "none";
+      adminContent.style.display = "block";
+
+    } else {
+
+      adminLogin.style.display = "block";
+      adminContent.style.display = "none";
+
+    }
+
+  });
+
 </script>
 </body>
   </html>
