@@ -2,280 +2,299 @@
 <html lang="en">
 
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABTR Admin – Product Manager</title>
 
-  <title>ABTR Admin – Product Manager</title>
+<style>
 
-  <style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+body{
+font-family:Arial,sans-serif;
+background:#f4f7f5;
+color:#123b2a;
+min-height:100vh;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7f5;
-      color: #123b2a;
-      min-height: 100vh;
-    }
+header{
+background:#087f3e;
+color:white;
+padding:20px;
+text-align:center;
+}
 
-    header {
-      background: #087f3e;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+header h1{
+margin-bottom:6px;
+}
 
-    header h1 {
-      margin-bottom: 6px;
-    }
+.back{
+display:inline-block;
+margin-top:10px;
+color:white;
+text-decoration:none;
+}
 
-    .back {
-      display: inline-block;
-      margin-top: 10px;
-      color: white;
-      text-decoration: none;
-    }
+#adminLogin{
+width:92%;
+max-width:420px;
+margin:50px auto;
+padding:25px;
+background:white;
+border-radius:15px;
+box-shadow:0 4px 15px rgba(0,0,0,.10);
+}
 
-    #adminLogin {
-      width: 92%;
-      max-width: 420px;
-      margin: 50px auto;
-      padding: 25px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,.10);
-    }
+#adminLogin h2{
+margin-bottom:10px;
+}
 
-    #adminLogin h2 {
-      margin-bottom: 10px;
-    }
+#adminLogin p{
+margin-bottom:18px;
+line-height:1.5;
+}
 
-    #adminLogin p {
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
+#adminLogin input{
+width:100%;
+padding:13px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
 
-    #adminLogin input {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
+#loginBtn{
+width:100%;
+padding:13px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+background:#087f3e;
+color:white;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+}
 
-    #loginBtn {
-      width: 100%;
-      padding: 13px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background: #087f3e;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
+#loginMessage{
+margin-top:12px;
+text-align:center;
+}
 
-    #loginMessage {
-      margin-top: 12px;
-      text-align: center;
-    }
+#adminContent{
+display:none;
+}
 
-    #adminContent {
-      display: none;
-    }
+.container{
+width:92%;
+max-width:900px;
+margin:30px auto;
+}
 
-    .container {
-      width: 92%;
-      max-width: 900px;
-      margin: 30px auto;
-    }
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:20px;
+}
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
+.logout-btn{
+background:#c62828;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
 
-    .logout-btn {
-      background: #c62828;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.card{
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+margin-bottom:25px;
+}
 
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,.08);
-      margin-bottom: 25px;
-    }
+.card h2{
+margin-bottom:20px;
+}
 
-    .card h2 {
-      margin-bottom: 20px;
-    }
+.notice{
+background:#fff8d8;
+border-left:5px solid #e0b000;
+padding:15px;
+line-height:1.6;
+margin-bottom:20px;
+border-radius:7px;
+}
 
-    .notice {
-      background: #fff8d8;
-      border-left: 5px solid #e0b000;
-      padding: 15px;
-      line-height: 1.6;
-      margin-bottom: 20px;
-      border-radius: 7px;
-    }
+label{
+display:block;
+font-weight:bold;
+margin:14px 0 7px;
+}
 
-    label {
-      display: block;
-      font-weight: bold;
-      margin: 14px 0 7px;
-    }
+input,
+select,
+textarea{
+width:100%;
+padding:13px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
 
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
+textarea{
+min-height:100px;
+resize:vertical;
+}
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+.file-box{
+border:2px dashed #087f3e;
+padding:18px;
+border-radius:10px;
+text-align:center;
+background:#f8fffb;
+cursor:pointer;
+}
 
-    .btn {
-      border: none;
-      padding: 13px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 15px;
-      margin-top: 18px;
-    }
+.file-box input{
+border:none;
+padding:0;
+}
 
-    .add-btn {
-      background: #087f3e;
-      color: white;
-      width: 100%;
-    }
+#preview{
+display:none;
+width:100%;
+max-height:300px;
+object-fit:contain;
+margin-top:15px;
+border-radius:10px;
+background:#eee;
+}
 
-    .clear-btn {
-      background: #ddd;
-      color: #333;
-      width: 100%;
-    }
+.btn{
+border:none;
+padding:13px 20px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+font-size:15px;
+margin-top:18px;
+}
 
-    .product-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
+.add-btn{
+background:#087f3e;
+color:white;
+width:100%;
+}
 
-    .product {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    }
+.clear-btn{
+background:#ddd;
+color:#333;
+width:100%;
+}
 
-    .product img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      background: #eee;
-    }
+.product-list{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+}
 
-    .product-info {
-      padding: 15px;
-    }
+.product{
+background:white;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
 
-    .product-info h3 {
-      margin-bottom: 8px;
-    }
+.product img{
+width:100%;
+height:180px;
+object-fit:cover;
+background:#eee;
+}
 
-    .price {
-      color: #087f3e;
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
+.product-info{
+padding:15px;
+}
 
-    .category {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 8px;
-    }
+.product-info h3{
+margin-bottom:8px;
+}
 
-    .delete-btn {
-      width: 100%;
-      background: #c62828;
-      color: white;
-      border: none;
-      padding: 11px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-    }
+.price{
+color:#087f3e;
+font-weight:bold;
+font-size:18px;
+margin-bottom:8px;
+}
 
-    #preview {
-      display: none;
-      width: 100%;
-      max-height: 250px;
-      object-fit: contain;
-      margin-top: 15px;
-      border-radius: 10px;
-      background: #eee;
-    }
+.category{
+font-size:13px;
+color:#666;
+margin-bottom:8px;
+}
 
-    #productMessage {
-      margin-top: 15px;
-      text-align: center;
-      font-weight: bold;
-    }
+.delete-btn{
+width:100%;
+background:#c62828;
+color:white;
+border:none;
+padding:11px;
+border-radius:7px;
+cursor:pointer;
+font-weight:bold;
+margin-top:10px;
+}
 
-    @media(max-width:600px) {
+#productMessage{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+}
 
-      .container {
-        width: 94%;
-      }
+#imageInfo{
+margin-top:8px;
+font-size:13px;
+color:#666;
+text-align:center;
+}
 
-      .topbar {
-        align-items: flex-start;
-        flex-direction: column;
-      }
+@media(max-width:600px){
 
-    }
+.container{
+width:94%;
+}
 
-  </style>
+.topbar{
+align-items:flex-start;
+flex-direction:column;
+}
 
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
 
-  <h1>ABTR 🛍️</h1>
+<h1>ABTR 🛍️</h1>
 
-  <p>ABUL-TURAB Online Market</p>
+<p>ABUL-TURAB Online Market</p>
 
-  <a href="index.html" class="back">
-    ← Back to Website
-  </a>
+<a href="index.html" class="back">
+← Back to Website
+</a>
 
 </header>
 
@@ -284,31 +303,31 @@
 
 <div id="adminLogin">
 
-  <h2>🔐 ABTR Admin Login</h2>
+<h2>🔐 ABTR Admin Login</h2>
 
-  <p>
-    Shiga domin sarrafa kayayyakin ABTR.
-  </p>
+<p>
+Shiga domin sarrafa kayayyakin ABTR.
+</p>
 
-  <input
-    type="email"
-    id="adminEmail"
-    placeholder="Admin Email"
-    autocomplete="email"
-  >
+<input
+type="email"
+id="adminEmail"
+placeholder="Admin Email"
+autocomplete="email"
+>
 
-  <input
-    type="password"
-    id="adminPassword"
-    placeholder="Password"
-    autocomplete="current-password"
-  >
+<input
+type="password"
+id="adminPassword"
+placeholder="Password"
+autocomplete="current-password"
+>
 
-  <button id="loginBtn">
-    🔑 Login
-  </button>
+<button id="loginBtn">
+🔑 Login
+</button>
 
-  <div id="loginMessage"></div>
+<div id="loginMessage"></div>
 
 </div>
 
@@ -317,776 +336,858 @@
 
 <div id="adminContent">
 
-  <div class="container">
+<div class="container">
 
-    <div class="topbar">
+<div class="topbar">
 
-      <h2>ABTR Product Manager</h2>
+<h2>ABTR Product Manager</h2>
 
-      <button
-        class="logout-btn"
-        id="logoutBtn"
-      >
-        🚪 Logout
-      </button>
+<button
+class="logout-btn"
+id="logoutBtn"
+>
+🚪 Logout
+</button>
 
-    </div>
-
-
-    <div class="notice">
-
-      <strong>Admin Panel</strong>
-
-      <br>
-
-      Wannan shafin na ABTR ne domin sarrafa
-      kayayyaki.
-
-    </div>
+</div>
 
 
-    <!-- ADD PRODUCT -->
+<div class="notice">
 
-    <div class="card">
+<strong>Admin Panel</strong>
 
-      <h2>➕ Add New Product</h2>
+<br>
 
-      <form id="productForm">
+Wannan shafin na ABTR ne domin sarrafa kayayyaki.
 
-        <label>
-          Product Name
-        </label>
-
-        <input
-          type="text"
-          id="productName"
-          placeholder="Example: Premium Jallabiya"
-          required
-        >
+</div>
 
 
-        <label>
-          Price
-        </label>
+<!-- ADD PRODUCT -->
 
-        <input
-          type="number"
-          id="productPrice"
-          placeholder="25000"
-          min="0"
-          required
-        >
+<div class="card">
 
+<h2>➕ Add New Product</h2>
 
-        <label>
-          Category
-        </label>
+<form id="productForm">
 
-        <select
-          id="productCategory"
-          required
-        >
+<label>
+Product Name
+</label>
 
-          <option value="">
-            Select Category
-          </option>
-
-          <option value="Fashion">
-            Fashion
-          </option>
-
-          <option value="Phone Accessories">
-            Phone Accessories
-          </option>
-
-          <option value="Health Products">
-            Health Products
-          </option>
-
-        </select>
+<input
+type="text"
+id="productName"
+placeholder="Example: Premium Jallabiya"
+required
+>
 
 
-        <label>
-          Product Description
-        </label>
+<label>
+Price
+</label>
 
-        <textarea
-          id="productDescription"
-          placeholder="Write a short description..."
-        ></textarea>
-
-
-        <label>
-          Product Picture URL
-        </label>
-
-        <input
-          type="url"
-          id="productImageUrl"
-          placeholder="https://example.com/product-image.jpg"
-          required
-        >
-
-        <img
-          id="preview"
-          alt="Product preview"
-        >
+<input
+type="number"
+id="productPrice"
+placeholder="25000"
+min="1"
+required
+>
 
 
-        <button
-          type="submit"
-          class="btn add-btn"
-          id="addProductBtn"
-        >
-          ➕ Add Product
-        </button>
+<label>
+Category
+</label>
+
+<select
+id="productCategory"
+required
+>
+
+<option value="">
+Select Category
+</option>
+
+<option value="Fashion">
+Fashion
+</option>
+
+<option value="Phone Accessories">
+Phone Accessories
+</option>
+
+<option value="Health Products">
+Health Products
+</option>
+
+</select>
 
 
-        <button
-          type="button"
-          class="btn clear-btn"
-          id="clearBtn"
-        >
-          Clear
-        </button>
+<label>
+Product Description
+</label>
 
-        <div id="productMessage"></div>
-
-      </form>
-
-    </div>
+<textarea
+id="productDescription"
+placeholder="Write a short description..."
+></textarea>
 
 
-    <!-- PRODUCTS -->
+<label>
+Product Picture
+</label>
 
-    <div class="card">
+<div class="file-box">
 
-      <h2>
-        🛍️ Products
-      </h2>
+<input
+type="file"
+id="productImage"
+accept="image/*"
+required
+>
 
-      <div
-        id="productList"
-        class="product-list"
-      ></div>
+<p style="margin-top:10px;">
+📷 Zaɓi hoto daga Gallery
+</p>
 
-    </div>
+</div>
 
-  </div>
+<img
+id="preview"
+alt="Product preview"
+>
+
+<div id="imageInfo"></div>
+
+
+<button
+type="submit"
+class="btn add-btn"
+id="addProductBtn"
+>
+➕ Add Product
+</button>
+
+
+<button
+type="button"
+class="btn clear-btn"
+id="clearBtn"
+>
+Clear
+</button>
+
+<div id="productMessage"></div>
+
+</form>
+
+</div>
+
+
+<!-- PRODUCTS -->
+
+<div class="card">
+
+<h2>
+🛍️ Products
+</h2>
+
+<div
+id="productList"
+class="product-list"
+></div>
+
+</div>
+
+</div>
 
 </div>
 
 
 <script type="module">
 
-  import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-  import {
-    getAuth,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-  }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    deleteDoc,
-    doc,
-    serverTimestamp
-  }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-  const firebaseConfig = {
+const firebaseConfig = {
 
-    apiKey:
-      "AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
+apiKey:
+"AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
 
-    authDomain:
-      "abtr-online-market.firebaseapp.com",
+authDomain:
+"abtr-online-market.firebaseapp.com",
 
-    projectId:
-      "abtr-online-market",
+projectId:
+"abtr-online-market",
 
-    storageBucket:
-      "abtr-online-market.firebasestorage.app",
+storageBucket:
+"abtr-online-market.firebasestorage.app",
 
-    messagingSenderId:
-      "24953738228",
+messagingSenderId:
+"24953738228",
 
-    appId:
-      "1:24953738228:web:f4d45ec73a847e1c46dfa1",
+appId:
+"1:24953738228:web:f4d45ec73a847e1c46dfa1",
 
-    measurementId:
-      "G-M2SPBLPXVN"
+measurementId:
+"G-M2SPBLPXVN"
 
-  };
+};
 
 
-  const app =
-    initializeApp(firebaseConfig);
+const app =
+initializeApp(firebaseConfig);
 
-  const auth =
-    getAuth(app);
+const auth =
+getAuth(app);
 
-  const db =
-    getFirestore(app);
+const db =
+getFirestore(app);
 
 
-  const adminLogin =
-    document.getElementById("adminLogin");
+const adminLogin =
+document.getElementById("adminLogin");
 
-  const adminContent =
-    document.getElementById("adminContent");
+const adminContent =
+document.getElementById("adminContent");
 
-  const loginBtn =
-    document.getElementById("loginBtn");
+const loginBtn =
+document.getElementById("loginBtn");
 
-  const logoutBtn =
-    document.getElementById("logoutBtn");
+const logoutBtn =
+document.getElementById("logoutBtn");
 
-  const loginMessage =
-    document.getElementById("loginMessage");
+const loginMessage =
+document.getElementById("loginMessage");
 
-  const productForm =
-    document.getElementById("productForm");
+const productForm =
+document.getElementById("productForm");
 
-  const productList =
-    document.getElementById("productList");
+const productList =
+document.getElementById("productList");
 
-  const productMessage =
-    document.getElementById("productMessage");
+const productMessage =
+document.getElementById("productMessage");
 
-  const productImageUrl =
-    document.getElementById("productImageUrl");
+const productImage =
+document.getElementById("productImage");
 
-  const preview =
-    document.getElementById("preview");
+const preview =
+document.getElementById("preview");
 
-  const addProductBtn =
-    document.getElementById("addProductBtn");
+const imageInfo =
+document.getElementById("imageInfo");
 
+const addProductBtn =
+document.getElementById("addProductBtn");
 
-  /* LOGIN */
 
-  loginBtn.addEventListener(
-    "click",
-    async function () {
+/* LOGIN */
 
-      const email =
-        document
-          .getElementById("adminEmail")
-          .value
-          .trim();
+loginBtn.addEventListener(
+"click",
+async function(){
 
-      const password =
-        document
-          .getElementById("adminPassword")
-          .value;
+const email =
+document
+.getElementById("adminEmail")
+.value
+.trim();
 
+const password =
+document
+.getElementById("adminPassword")
+.value;
 
-      if (!email || !password) {
+if(!email || !password){
 
-        loginMessage.textContent =
-          "⚠️ Saka email da password.";
+loginMessage.textContent =
+"⚠️ Saka email da password.";
 
-        return;
+return;
 
-      }
+}
 
+loginMessage.textContent =
+"⏳ Ana shiga...";
 
-      loginMessage.textContent =
-        "⏳ Ana shiga...";
+try{
 
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-      try {
+loginMessage.textContent="";
 
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+}
 
-        loginMessage.textContent =
-          "";
+catch(error){
 
-      }
+console.error(error);
 
-      catch (error) {
+loginMessage.textContent =
+"❌ Email ko password ba daidai ba ne.";
 
-        console.error(error);
+}
 
-        loginMessage.textContent =
-          "❌ Email ko password ba daidai ba ne.";
+}
+);
 
-      }
 
-    }
-  );
+/* LOGOUT */
 
+logoutBtn.addEventListener(
+"click",
+async function(){
 
-  /* LOGOUT */
+await signOut(auth);
 
-  logoutBtn.addEventListener(
-    "click",
-    async function () {
+}
+);
 
-      await signOut(auth);
 
-    }
-  );
+/* AUTH */
 
+onAuthStateChanged(
+auth,
+function(user){
 
-  /* AUTH STATE */
+if(user){
 
-  onAuthStateChanged(
-    auth,
-    function (user) {
+adminLogin.style.display="none";
 
-      if (user) {
+adminContent.style.display="block";
 
-        adminLogin.style.display =
-          "none";
+loadProducts();
 
-        adminContent.style.display =
-          "block";
+}
 
-        loadProducts();
+else{
 
-      }
+adminLogin.style.display="block";
 
-      else {
+adminContent.style.display="none";
 
-        adminLogin.style.display =
-          "block";
+}
 
-        adminContent.style.display =
-          "none";
+}
+);
 
-      }
 
-    }
-  );
+/* IMAGE */
 
+productImage.addEventListener(
+"change",
+async function(){
 
-  /* IMAGE PREVIEW */
+const file=this.files[0];
 
-  productImageUrl.addEventListener(
-    "input",
-    function () {
+if(!file){
 
-      const url =
-        this.value.trim();
+preview.style.display="none";
 
+preview.src="";
 
-      if (!url) {
+imageInfo.textContent="";
 
-        preview.style.display =
-          "none";
+return;
 
-        preview.src =
-          "";
+}
 
-        return;
+if(!file.type.startsWith("image/")){
 
-      }
+alert("⚠️ Zaɓi hoto kawai.");
 
+this.value="";
 
-      preview.src =
-        url;
+return;
 
-      preview.style.display =
-        "block";
+}
 
-    }
-  );
+imageInfo.textContent =
+"⏳ Ana shirya hoton...";
 
+try{
 
-  preview.addEventListener(
-    "error",
-    function () {
+const compressedImage =
+await compressImage(file);
 
-      preview.style.display =
-        "none";
+preview.src =
+compressedImage;
 
-    }
-  );
+preview.style.display="block";
 
+imageInfo.textContent =
+"✅ An shirya hoton. Za ka iya danna Add Product.";
 
-  /* ADD PRODUCT */
+preview.dataset.image =
+compressedImage;
 
-  productForm.addEventListener(
-    "submit",
-    async function (event) {
+}
 
-      event.preventDefault();
+catch(error){
 
+console.error(error);
 
-      const name =
-        document
-          .getElementById("productName")
-          .value
-          .trim();
+imageInfo.textContent =
+"❌ An kasa shirya hoton.";
 
-      const price =
-        Number(
-          document
-            .getElementById("productPrice")
-            .value
-        );
+}
 
-      const category =
-        document
-          .getElementById("productCategory")
-          .value;
+}
+);
 
-      const description =
-        document
-          .getElementById("productDescription")
-          .value
-          .trim();
 
-      const imageUrl =
-        productImageUrl
-          .value
-          .trim();
+/* COMPRESS IMAGE */
 
+function compressImage(file){
 
-      if (!name || !price || !category || !imageUrl) {
+return new Promise(
+(resolve,reject)=>{
 
-        productMessage.textContent =
-          "⚠️ Cika bayanan product gaba ɗaya.";
+const reader =
+new FileReader();
 
-        return;
+reader.onload =
+function(event){
 
-      }
+const img =
+new Image();
 
+img.onload =
+function(){
 
-      addProductBtn.disabled =
-        true;
+const maxWidth=800;
 
-      addProductBtn.textContent =
-        "⏳ Ana adding...";
+const maxHeight=800;
 
-      productMessage.textContent =
-        "";
+let width=img.width;
 
+let height=img.height;
 
-      try {
 
-        await addDoc(
-          collection(db, "products"),
-          {
+if(width>maxWidth){
 
-            name: name,
+height =
+height * maxWidth / width;
 
-            price: price,
+width=maxWidth;
 
-            category: category,
+}
 
-            description: description,
 
-            imageUrl: imageUrl,
+if(height>maxHeight){
 
-            createdAt: serverTimestamp()
+width =
+width * maxHeight / height;
 
-          }
-        );
+height=maxHeight;
 
+}
 
-        productMessage.textContent =
-          "✅ An ƙara product cikin nasara!";
 
+const canvas =
+document.createElement("canvas");
 
-        clearForm();
+canvas.width=width;
 
-        await loadProducts();
+canvas.height=height;
 
 
-      }
+const ctx =
+canvas.getContext("2d");
 
-      catch (error) {
+ctx.drawImage(
+img,
+0,
+0,
+width,
+height
+);
 
-        console.error(error);
 
-        productMessage.textContent =
-          "❌ An samu matsala wajen ƙara product: " +
-          error.message;
+const compressed =
+canvas.toDataURL(
+"image/jpeg",
+0.70
+);
 
-      }
 
+resolve(compressed);
 
-      addProductBtn.disabled =
-        false;
+};
 
-      addProductBtn.textContent =
-        "➕ Add Product";
 
-    }
-  );
+img.onerror=reject;
 
+img.src=event.target.result;
 
-  /* LOAD PRODUCTS */
+};
 
-  async function loadProducts() {
+reader.onerror=reject;
 
-    productList.innerHTML =
-      "<p>⏳ Ana ɗauko products...</p>";
+reader.readAsDataURL(file);
 
+}
+}
 
-    try {
 
-      const snapshot =
-        await getDocs(
-          collection(db, "products")
-        );
+/* ADD PRODUCT */
 
+productForm.addEventListener(
+"submit",
+async function(event){
 
-      productList.innerHTML =
-        "";
+event.preventDefault();
 
 
-      if (snapshot.empty) {
+const name =
+document
+.getElementById("productName")
+.value
+.trim();
 
-        productList.innerHTML =
-          "<p>🛍️ Babu products tukuna.</p>";
 
-        return;
+const price =
+Number(
+document
+.getElementById("productPrice")
+.value
+);
 
-      }
 
+const category =
+document
+.getElementById("productCategory")
+.value;
 
-      snapshot.forEach(
-        function (documentSnapshot) {
 
-          const product =
-            documentSnapshot.data();
+const description =
+document
+.getElementById("productDescription")
+.value
+.trim();
 
-          const productId =
-            documentSnapshot.id;
 
+const imageUrl =
+preview.dataset.image || "";
 
-          const card =
-            document.createElement(
-              "div"
-            );
 
+if(!name || !price || !category || !imageUrl){
 
-          card.className =
-            "product";
+productMessage.textContent =
+"⚠️ Cika bayanan product gaba ɗaya.";
 
+return;
 
-          const image =
-            document.createElement(
-              "img"
-            );
+}
 
-          image.src =
-            product.imageUrl || "";
 
-          image.alt =
-            product.name || "Product";
+addProductBtn.disabled=true;
 
+addProductBtn.textContent =
+"⏳ Ana adding...";
 
-          const info =
-            document.createElement(
-              "div"
-            );
+productMessage.textContent="";
 
-          info.className =
-            "product-info";
 
+try{
 
-          const title =
-            document.createElement(
-              "h3"
-            );
+await addDoc(
+collection(db,"products"),
+{
 
-          title.textContent =
-            product.name || "";
+name:name,
 
+price:price,
 
-          const price =
-            document.createElement(
-              "div"
-            );
+category:category,
 
-          price.className =
-            "price";
+description:description,
 
-          price.textContent =
-            "₦" +
-            Number(
-              product.price || 0
-            ).toLocaleString();
+imageUrl:imageUrl,
 
+createdAt:serverTimestamp()
 
-          const category =
-            document.createElement(
-              "div"
-            );
+}
+);
 
-          category.className =
-            "category";
 
-          category.textContent =
-            product.category || "";
+productMessage.textContent =
+"✅ An ƙara product cikin nasara!";
 
 
-          const description =
-            document.createElement(
-              "p"
-            );
+clearForm();
 
-          description.textContent =
-            product.description || "";
+await loadProducts();
 
+}
 
-          const deleteButton =
-            document.createElement(
-              "button"
-            );
+catch(error){
 
-          deleteButton.className =
-            "delete-btn";
+console.error(error);
 
-          deleteButton.textContent =
-            "🗑️ Delete Product";
+productMessage.textContent =
+"❌ An samu matsala: "+
+error.message;
 
+}
 
-          deleteButton.addEventListener(
-            "click",
-            function () {
 
-              deleteProduct(
-                productId
-              );
+addProductBtn.disabled=false;
 
-            }
-          );
+addProductBtn.textContent =
+"➕ Add Product";
 
+}
+);
 
-          info.appendChild(title);
 
-          info.appendChild(price);
+/* LOAD PRODUCTS */
 
-          info.appendChild(category);
+async function loadProducts(){
 
-          info.appendChild(description);
+productList.innerHTML =
+"<p>⏳ Ana ɗauko products...</p>";
 
-          info.appendChild(deleteButton);
+try{
 
+const snapshot =
+await getDocs(
+collection(db,"products")
+);
 
-          card.appendChild(image);
+productList.innerHTML="";
 
-          card.appendChild(info);
 
+if(snapshot.empty){
 
-          productList.appendChild(card);
+productList.innerHTML =
+"<p>🛍️ Babu products tukuna.</p>";
 
-        }
-      );
+return;
 
-    }
+}
 
-    catch (error) {
 
-      console.error(error);
+snapshot.forEach(
+function(documentSnapshot){
 
-      productList.innerHTML =
-        "<p>❌ An kasa ɗauko products. " +
-        error.message +
-        "</p>";
+const product =
+documentSnapshot.data();
 
-    }
+const productId =
+documentSnapshot.id;
 
-  }
 
+const card =
+document.createElement("div");
 
-  /* DELETE PRODUCT */
+card.className="product";
 
-  async function deleteProduct(id) {
 
-    const confirmed =
-      confirm(
-        "Kana tabbatar da cewa kana son cire wannan product?"
-      );
+const image =
+document.createElement("img");
 
+image.src =
+product.imageUrl || "";
 
-    if (!confirmed) {
+image.alt =
+product.name || "Product";
 
-      return;
 
-    }
+const info =
+document.createElement("div");
 
+info.className="product-info";
 
-    try {
 
-      await deleteDoc(
-        doc(
-          db,
-          "products",
-          id
-        )
-      );
+const title =
+document.createElement("h3");
 
+title.textContent =
+product.name || "";
 
-      alert(
-        "✅ An cire product cikin nasara."
-      );
 
+const price =
+document.createElement("div");
 
-      await loadProducts();
+price.className="price";
 
-    }
+price.textContent =
+"₦"+
+Number(
+product.price || 0
+).toLocaleString();
 
-    catch (error) {
 
-      console.error(error);
+const category =
+document.createElement("div");
 
-      alert(
-        "❌ An kasa cire product: " +
-        error.message
-      );
+category.className="category";
 
-    }
+category.textContent =
+product.category || "";
 
-  }
 
+const description =
+document.createElement("p");
 
-  /* CLEAR FORM */
+description.textContent =
+product.description || "";
 
-  function clearForm() {
 
-    productForm.reset();
+const deleteButton =
+document.createElement("button");
 
-    preview.src =
-      "";
+deleteButton.className =
+"delete-btn";
 
-    preview.style.display =
-      "none";
+deleteButton.textContent =
+"🗑️ Delete Product";
 
-    productMessage.textContent =
-      "";
 
-  }
+deleteButton.addEventListener(
+"click",
+function(){
 
+deleteProduct(productId);
 
-  document
-    .getElementById("clearBtn")
-    .addEventListener(
-      "click",
-      clearForm
-    );
+}
+);
 
+
+info.appendChild(title);
+
+info.appendChild(price);
+
+info.appendChild(category);
+
+info.appendChild(description);
+
+info.appendChild(deleteButton);
+
+card.appendChild(image);
+
+card.appendChild(info);
+
+productList.appendChild(card);
+
+}
+);
+
+}
+
+catch(error){
+
+console.error(error);
+
+productList.innerHTML =
+"❌ An kasa ɗauko products: "+
+error.message;
+
+}
+
+}
+
+
+/* DELETE */
+
+async function deleteProduct(id){
+
+const confirmed =
+confirm(
+"Ka tabbatar kana son cire wannan product?"
+);
+
+if(!confirmed){
+
+return;
+
+}
+
+try{
+
+await deleteDoc(
+doc(
+db,
+"products",
+id
+)
+);
+
+alert(
+"✅ An cire product cikin nasara."
+);
+
+await loadProducts();
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert(
+"❌ An kasa cire product: "+
+error.message
+);
+
+}
+
+}
+
+
+/* CLEAR */
+
+function clearForm(){
+
+productForm.reset();
+
+preview.src="";
+
+preview.style.display="none";
+
+preview.dataset.image="";
+
+imageInfo.textContent="";
+
+productMessage.textContent="";
+
+}
+
+
+document
+.getElementById("clearBtn")
+.addEventListener(
+"click",
+clearForm
+);
 
 </script>
 
 </body>
-
   </html>
