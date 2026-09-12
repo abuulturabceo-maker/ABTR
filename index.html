@@ -28,7 +28,7 @@ line-height:1.6;
 header{
 background:#087f3e;
 color:white;
-padding:18px 5%;
+padding:20px 5%;
 text-align:center;
 }
 
@@ -43,14 +43,14 @@ font-size:15px;
 
 .hero{
 background:white;
-padding:45px 5%;
+padding:40px 5%;
 text-align:center;
 }
 
 .hero h2{
-font-size:30px;
-margin-bottom:10px;
+font-size:28px;
 color:#087f3e;
+margin-bottom:10px;
 }
 
 .hero p{
@@ -59,17 +59,22 @@ margin:0 auto 20px;
 }
 
 .search-box{
-width:90%;
-max-width:600px;
+width:92%;
+max-width:650px;
 margin:20px auto;
 }
 
 .search-box input{
 width:100%;
-padding:14px;
-border:1px solid #ccc;
+padding:15px;
+border:2px solid #ddd;
 border-radius:10px;
-font-size:16px;
+font-size:17px;
+outline:none;
+}
+
+.search-box input:focus{
+border-color:#087f3e;
 }
 
 .categories{
@@ -77,7 +82,7 @@ display:flex;
 justify-content:center;
 flex-wrap:wrap;
 gap:10px;
-padding:25px 5%;
+padding:20px 5%;
 }
 
 .category-btn{
@@ -90,8 +95,8 @@ font-weight:bold;
 cursor:pointer;
 }
 
-.category-btn:hover{
-opacity:.9;
+.category-btn.active{
+background:#123b2a;
 }
 
 .section{
@@ -125,8 +130,8 @@ box-shadow:
 width:100%;
 height:220px;
 object-fit:cover;
-background:#eee;
 display:block;
+background:#eee;
 }
 
 .product-info{
@@ -134,8 +139,8 @@ padding:16px;
 }
 
 .product-info h3{
-margin-bottom:7px;
 font-size:19px;
+margin-bottom:7px;
 }
 
 .price{
@@ -166,21 +171,28 @@ text-decoration:none;
 padding:12px;
 border-radius:8px;
 font-weight:bold;
-}
-
-.whatsapp-btn:hover{
-opacity:.9;
+cursor:pointer;
 }
 
 .loading{
 text-align:center;
-padding:30px;
+padding:35px;
+background:white;
+border-radius:10px;
 }
 
 .empty{
 text-align:center;
 padding:30px;
 background:white;
+border-radius:10px;
+}
+
+.error{
+text-align:center;
+padding:25px;
+background:#ffe5e5;
+color:#a00000;
 border-radius:10px;
 }
 
@@ -233,6 +245,17 @@ text-decoration:none;
 font-size:13px;
 }
 
+.refresh-btn{
+margin-top:12px;
+padding:10px 18px;
+border:none;
+border-radius:8px;
+background:#087f3e;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
 @media(max-width:600px){
 
 .hero h2{
@@ -283,6 +306,7 @@ safety, and profit.
 type="search"
 id="searchInput"
 placeholder="🔎 Search products..."
+autocomplete="off"
 >
 
 </div>
@@ -293,7 +317,7 @@ placeholder="🔎 Search products..."
 <div class="categories">
 
 <button
-class="category-btn"
+class="category-btn active"
 data-category="All"
 >
 🛍️ All
@@ -329,6 +353,7 @@ data-category="Health Products"
 🛍️ Our Products
 </h2>
 
+
 <div
 id="productGrid"
 class="product-grid"
@@ -352,12 +377,10 @@ About ABTR
 </h2>
 
 <p>
-
 ABTR – ABUL-TURAB Online Market
 is an African online marketplace
 connecting buyers and sellers across
 Nigeria and West Africa.
-
 </p>
 
 
@@ -391,7 +414,8 @@ kasuwanci cikin aminci.
 <h3>💰 Profit</h3>
 
 <p>
-Dama ga masu saye da masu sayarwa.
+Dama ga masu saye da
+masu sayarwa.
 </p>
 
 </div>
@@ -435,23 +459,16 @@ class="admin-link"
 </footer>
 
 
-<script type="module">
+<!-- FIREBASE -->
 
-import {
-initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
 
 
-import {
-getFirestore,
-collection,
-getDocs
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+<script>
 
+/* FIREBASE CONFIG */
 
 const firebaseConfig = {
 
@@ -479,12 +496,15 @@ measurementId:
 };
 
 
-const app =
-initializeApp(firebaseConfig);
+/* START FIREBASE */
+
+firebase.initializeApp(firebaseConfig);
 
 const db =
-getFirestore(app);
+firebase.firestore();
 
+
+/* ELEMENTS */
 
 const productGrid =
 document.getElementById("productGrid");
@@ -492,6 +512,8 @@ document.getElementById("productGrid");
 const searchInput =
 document.getElementById("searchInput");
 
+
+/* DATA */
 
 let allProducts = [];
 
@@ -502,39 +524,60 @@ let selectedCategory = "All";
 
 async function loadProducts(){
 
-productGrid.innerHTML =
-`
+productGrid.innerHTML = `
 <div class="loading">
 ⏳ Ana ɗauko products...
 </div>
 `;
 
+
 try{
 
 const snapshot =
-await getDocs(
-collection(db,"products")
-);
+await db
+.collection("products")
+.get();
 
 
 allProducts = [];
 
+
 snapshot.forEach(
-function(documentSnapshot){
+function(doc){
+
+const data =
+doc.data();
+
 
 allProducts.push({
 
-id:
-documentSnapshot.id,
+id:doc.id,
 
-...documentSnapshot.data()
+name:data.name || "",
+
+price:data.price || 0,
+
+category:data.category || "",
+
+description:data.description || "",
+
+imageUrl:data.imageUrl || ""
 
 });
 
 });
 
+
+console.log(
+"ABTR Products:",
+allProducts
+);
+
+
+/* SHOW PRODUCTS */
 
 displayProducts();
+
 
 }
 
@@ -542,9 +585,10 @@ catch(error){
 
 console.error(error);
 
-productGrid.innerHTML =
-`
-<div class="empty">
+
+productGrid.innerHTML = `
+
+<div class="error">
 
 ❌ An kasa ɗauko products.
 
@@ -552,7 +596,17 @@ productGrid.innerHTML =
 
 ${error.message}
 
+<br><br>
+
+<button
+class="refresh-btn"
+onclick="loadProducts()"
+>
+🔄 Sake gwadawa
+</button>
+
 </div>
+
 `;
 
 }
@@ -574,38 +628,76 @@ const filtered =
 allProducts.filter(
 function(product){
 
+
+/* CATEGORY */
+
+const categoryText =
+String(
+product.category
+).trim().toLowerCase();
+
+
+const selectedText =
+String(
+selectedCategory
+).trim().toLowerCase();
+
+
 const matchesCategory =
-selectedCategory === "All" ||
-product.category === selectedCategory;
+selectedText === "all" ||
+categoryText === selectedText;
+
+
+/* SEARCH */
+
+const searchableText = (
+
+String(product.name) +
+" " +
+String(product.category) +
+" " +
+String(product.description)
+
+)
+.toLowerCase();
 
 
 const matchesSearch =
-(product.name || "")
-.toLowerCase()
-.includes(searchText);
+searchText === "" ||
+searchableText.includes(searchText);
 
 
-return
+return (
 matchesCategory &&
-matchesSearch;
+matchesSearch
+);
 
 }
 );
 
 
-productGrid.innerHTML = "";
-
+/* EMPTY */
 
 if(filtered.length === 0){
 
-productGrid.innerHTML =
-`
+productGrid.innerHTML = `
+
 <div class="empty">
 
 🛍️ Babu product da ya dace
 da wannan binciken.
 
+<br><br>
+
+<button
+class="refresh-btn"
+onclick="clearSearch()"
+>
+🔄 Nuna duk Products
+</button>
+
 </div>
+
 `;
 
 return;
@@ -613,8 +705,16 @@ return;
 }
 
 
+/* CLEAR */
+
+productGrid.innerHTML = "";
+
+
+/* CREATE PRODUCTS */
+
 filtered.forEach(
 function(product){
+
 
 const card =
 document.createElement("div");
@@ -623,23 +723,36 @@ card.className =
 "product";
 
 
+/* IMAGE */
+
 const image =
 document.createElement("img");
 
 image.src =
-product.imageUrl || "";
+product.imageUrl;
 
 image.alt =
-product.name || "Product";
+product.name || "ABTR Product";
 
 
 image.onerror =
 function(){
 
-this.style.display="none";
+this.src =
+"data:image/svg+xml;charset=UTF-8," +
+encodeURIComponent(
+`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
+<rect width="100%" height="100%" fill="#eeeeee"/>
+<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#777" font-size="28">
+ABTR Product
+</text>
+</svg>`
+);
 
 };
 
+
+/* INFO */
 
 const info =
 document.createElement("div");
@@ -648,12 +761,16 @@ info.className =
 "product-info";
 
 
+/* NAME */
+
 const title =
 document.createElement("h3");
 
 title.textContent =
-product.name || "Product";
+product.name;
 
+
+/* PRICE */
 
 const price =
 document.createElement("div");
@@ -668,6 +785,8 @@ product.price || 0
 ).toLocaleString();
 
 
+/* CATEGORY */
+
 const category =
 document.createElement("div");
 
@@ -675,8 +794,10 @@ category.className =
 "category";
 
 category.textContent =
-product.category || "";
+product.category;
 
+
+/* DESCRIPTION */
 
 const description =
 document.createElement("div");
@@ -685,8 +806,10 @@ description.className =
 "description";
 
 description.textContent =
-product.description || "";
+product.description;
 
+
+/* WHATSAPP */
 
 const whatsapp =
 document.createElement("a");
@@ -697,66 +820,64 @@ whatsapp.className =
 whatsapp.textContent =
 "🟢 Order on WhatsApp";
 
-
-const message =
-encodeURIComponent(
-
-`Hello ABTR, I want to order this product:
-
-Product: ${product.name || ""}
-
-Price: ₦${Number(
-product.price || 0
-).toLocaleString()}
-
-Category: ${product.category || ""}
-
-Please give me more information.`
-
-);
-
-
-const number1 =
-"2347020302336";
-
-const number2 =
-"218910605267";
-
-
 whatsapp.href =
-"https://wa.me/" +
-number1 +
-"?text=" +
-message;
-
-
-whatsapp.target =
-"_blank";
+"#";
 
 
 whatsapp.addEventListener(
 "click",
 function(event){
 
-const choose =
+event.preventDefault();
+
+
+const message =
+encodeURIComponent(
+
+`Hello ABTR, I want to order this product:
+
+Product: ${product.name}
+
+Price: ₦${Number(
+product.price || 0
+).toLocaleString()}
+
+Category: ${product.category}
+
+Please give me more information.`
+
+);
+
+
+/* CHOOSE NUMBER */
+
+const useNigeria =
 confirm(
-"OK = WhatsApp Nigeria\nCancel = WhatsApp Libya"
+"OK = WhatsApp Nigeria\n\nCancel = WhatsApp Libya"
 );
 
 
-if(!choose){
+const number =
+useNigeria
+?
+"2347020302336"
+:
+"218910605267";
 
-whatsapp.href =
+
+window.open(
 "https://wa.me/" +
-number2 +
+number +
 "?text=" +
-message;
-
-}
+message,
+"_blank"
+);
 
 }
 );
 
+
+/* ADD */
 
 info.appendChild(title);
 
@@ -786,11 +907,15 @@ productGrid.appendChild(card);
 
 searchInput.addEventListener(
 "input",
-displayProducts
+function(){
+
+displayProducts();
+
+}
 );
 
 
-/* CATEGORY */
+/* CATEGORY BUTTONS */
 
 document
 .querySelectorAll(".category-btn")
@@ -804,6 +929,27 @@ function(){
 selectedCategory =
 this.dataset.category;
 
+
+/* ACTIVE */
+
+document
+.querySelectorAll(".category-btn")
+.forEach(
+function(btn){
+
+btn.classList.remove(
+"active"
+);
+
+}
+);
+
+
+this.classList.add(
+"active"
+);
+
+
 displayProducts();
 
 }
@@ -813,11 +959,46 @@ displayProducts();
 );
 
 
+/* CLEAR SEARCH */
+
+function clearSearch(){
+
+searchInput.value = "";
+
+selectedCategory = "All";
+
+
+document
+.querySelectorAll(".category-btn")
+.forEach(
+function(btn){
+
+btn.classList.remove(
+"active"
+);
+
+}
+);
+
+
+document
+.querySelector(
+'[data-category="All"]'
+)
+.classList.add("active");
+
+
+displayProducts();
+
+}
+
+
 /* START */
 
 loadProducts();
 
 </script>
+
 
 </body>
 
