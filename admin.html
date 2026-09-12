@@ -2,8 +2,11 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>ABTR Admin – Product Manager</title>
 
@@ -81,9 +84,14 @@ font-size:16px;
 cursor:pointer;
 }
 
+#loginBtn:disabled{
+opacity:.7;
+}
+
 #loginMessage{
 margin-top:12px;
 text-align:center;
+line-height:1.5;
 }
 
 #adminContent{
@@ -162,7 +170,6 @@ padding:18px;
 border-radius:10px;
 text-align:center;
 background:#f8fffb;
-cursor:pointer;
 }
 
 .file-box input{
@@ -178,6 +185,13 @@ object-fit:contain;
 margin-top:15px;
 border-radius:10px;
 background:#eee;
+}
+
+#imageInfo{
+margin-top:8px;
+font-size:13px;
+color:#666;
+text-align:center;
 }
 
 .btn{
@@ -259,13 +273,18 @@ margin-top:10px;
 margin-top:15px;
 text-align:center;
 font-weight:bold;
+line-height:1.5;
 }
 
-#imageInfo{
-margin-top:8px;
-font-size:13px;
-color:#666;
-text-align:center;
+.error-box{
+width:92%;
+max-width:900px;
+margin:20px auto;
+padding:15px;
+background:#ffe5e5;
+color:#a00000;
+border-radius:10px;
+display:none;
 }
 
 @media(max-width:600px){
@@ -282,6 +301,7 @@ flex-direction:column;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -297,6 +317,9 @@ flex-direction:column;
 </a>
 
 </header>
+
+
+<div id="systemError" class="error-box"></div>
 
 
 <!-- LOGIN -->
@@ -323,7 +346,10 @@ placeholder="Password"
 autocomplete="current-password"
 >
 
-<button id="loginBtn">
+<button
+type="button"
+id="loginBtn"
+>
 🔑 Login
 </button>
 
@@ -343,6 +369,7 @@ autocomplete="current-password"
 <h2>ABTR Product Manager</h2>
 
 <button
+type="button"
 class="logout-btn"
 id="logoutBtn"
 >
@@ -453,10 +480,12 @@ required
 
 </div>
 
+
 <img
 id="preview"
 alt="Product preview"
 >
+
 
 <div id="imageInfo"></div>
 
@@ -477,6 +506,7 @@ id="clearBtn"
 >
 Clear
 </button>
+
 
 <div id="productMessage"></div>
 
@@ -505,30 +535,18 @@ class="product-list"
 </div>
 
 
-<script type="module">
+<!-- FIREBASE -->
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
 
-import {
-getAuth,
-signInWithEmailAndPassword,
-onAuthStateChanged,
-signOut
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-auth-compat.js"></script>
 
-import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-deleteDoc,
-doc,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
 
+
+<script>
+
+/* FIREBASE CONFIG */
 
 const firebaseConfig = {
 
@@ -556,15 +574,18 @@ measurementId:
 };
 
 
-const app =
-initializeApp(firebaseConfig);
+/* START FIREBASE */
+
+firebase.initializeApp(firebaseConfig);
 
 const auth =
-getAuth(app);
+firebase.auth();
 
 const db =
-getFirestore(app);
+firebase.firestore();
 
+
+/* ELEMENTS */
 
 const adminLogin =
 document.getElementById("adminLogin");
@@ -602,6 +623,9 @@ document.getElementById("imageInfo");
 const addProductBtn =
 document.getElementById("addProductBtn");
 
+const systemError =
+document.getElementById("systemError");
+
 
 /* LOGIN */
 
@@ -620,6 +644,7 @@ document
 .getElementById("adminPassword")
 .value;
 
+
 if(!email || !password){
 
 loginMessage.textContent =
@@ -629,18 +654,25 @@ return;
 
 }
 
-loginMessage.textContent =
+
+loginBtn.disabled=true;
+
+loginBtn.textContent =
 "⏳ Ana shiga...";
+
+loginMessage.textContent =
+"";
+
 
 try{
 
-await signInWithEmailAndPassword(
-auth,
+await auth.signInWithEmailAndPassword(
 email,
 password
 );
 
-loginMessage.textContent="";
+loginMessage.textContent =
+"✅ Ana buɗe Admin...";
 
 }
 
@@ -648,10 +680,66 @@ catch(error){
 
 console.error(error);
 
-loginMessage.textContent =
+let message =
+"❌ An kasa shiga.";
+
+if(
+error.code ===
+"auth/invalid-credential"
+){
+
+message =
 "❌ Email ko password ba daidai ba ne.";
 
 }
+
+else if(
+error.code ===
+"auth/user-not-found"
+){
+
+message =
+"❌ Ba a samu wannan Admin email ba.";
+
+}
+
+else if(
+error.code ===
+"auth/wrong-password"
+){
+
+message =
+"❌ Password ba daidai ba ne.";
+
+}
+
+else if(
+error.code ===
+"auth/invalid-email"
+){
+
+message =
+"❌ Email ɗin ba daidai ba ne.";
+
+}
+
+else{
+
+message =
+"❌ "+error.message;
+
+}
+
+loginMessage.textContent =
+message;
+
+}
+
+
+loginBtn.disabled=false;
+
+loginBtn.textContent =
+"🔑 Login";
 
 }
 );
@@ -663,23 +751,36 @@ logoutBtn.addEventListener(
 "click",
 async function(){
 
-await signOut(auth);
+try{
+
+await auth.signOut();
+
+}
+catch(error){
+
+console.error(error);
+
+}
 
 }
 );
 
 
-/* AUTH */
+/* AUTH STATE */
 
-onAuthStateChanged(
-auth,
+auth.onAuthStateChanged(
 function(user){
 
 if(user){
 
-adminLogin.style.display="none";
+adminLogin.style.display =
+"none";
 
-adminContent.style.display="block";
+adminContent.style.display =
+"block";
+
+loginMessage.textContent =
+"";
 
 loadProducts();
 
@@ -687,9 +788,11 @@ loadProducts();
 
 else{
 
-adminLogin.style.display="block";
+adminLogin.style.display =
+"block";
 
-adminContent.style.display="none";
+adminContent.style.display =
+"none";
 
 }
 
@@ -697,29 +800,38 @@ adminContent.style.display="none";
 );
 
 
-/* IMAGE */
+/* IMAGE SELECT */
 
 productImage.addEventListener(
 "change",
 async function(){
 
-const file=this.files[0];
+const file =
+this.files[0];
 
 if(!file){
 
-preview.style.display="none";
+preview.style.display =
+"none";
 
-preview.src="";
+preview.src =
+"";
 
-imageInfo.textContent="";
+imageInfo.textContent =
+"";
 
 return;
 
 }
 
-if(!file.type.startsWith("image/")){
 
-alert("⚠️ Zaɓi hoto kawai.");
+if(
+!file.type.startsWith("image/")
+){
+
+alert(
+"⚠️ Zaɓi hoto kawai."
+);
 
 this.value="";
 
@@ -727,8 +839,10 @@ return;
 
 }
 
+
 imageInfo.textContent =
 "⏳ Ana shirya hoton...";
+
 
 try{
 
@@ -738,13 +852,14 @@ await compressImage(file);
 preview.src =
 compressedImage;
 
-preview.style.display="block";
-
-imageInfo.textContent =
-"✅ An shirya hoton. Za ka iya danna Add Product.";
+preview.style.display =
+"block";
 
 preview.dataset.image =
 compressedImage;
+
+imageInfo.textContent =
+"✅ An shirya hoton.";
 
 }
 
@@ -766,10 +881,11 @@ imageInfo.textContent =
 function compressImage(file){
 
 return new Promise(
-(resolve,reject)=>{
+function(resolve,reject){
 
 const reader =
 new FileReader();
+
 
 reader.onload =
 function(event){
@@ -777,62 +893,84 @@ function(event){
 const img =
 new Image();
 
+
 img.onload =
 function(){
 
-const maxWidth=800;
+const maxWidth =
+700;
 
-const maxHeight=800;
+const maxHeight =
+700;
 
-let width=img.width;
+let width =
+img.width;
 
-let height=img.height;
+let height =
+img.height;
 
 
-if(width>maxWidth){
+if(
+width > maxWidth
+){
 
 height =
-height * maxWidth / width;
+height *
+maxWidth /
+width;
 
-width=maxWidth;
+width =
+maxWidth;
 
 }
 
 
-if(height>maxHeight){
+if(
+height > maxHeight
+){
 
 width =
-width * maxHeight / height;
+width *
+maxHeight /
+height;
 
-height=maxHeight;
+height =
+maxHeight;
 
 }
 
 
 const canvas =
-document.createElement("canvas");
+document.createElement(
+"canvas"
+);
 
-canvas.width=width;
+canvas.width =
+Math.round(width);
 
-canvas.height=height;
+canvas.height =
+Math.round(height);
 
 
 const ctx =
-canvas.getContext("2d");
+canvas.getContext(
+"2d"
+);
+
 
 ctx.drawImage(
 img,
 0,
 0,
-width,
-height
+canvas.width,
+canvas.height
 );
 
 
 const compressed =
 canvas.toDataURL(
 "image/jpeg",
-0.70
+0.60
 );
 
 
@@ -841,17 +979,41 @@ resolve(compressed);
 };
 
 
-img.onerror=reject;
+img.onerror =
+function(){
 
-img.src=event.target.result;
+reject(
+new Error(
+"Image loading failed"
+)
+);
 
 };
 
-reader.onerror=reject;
+
+img.src =
+event.target.result;
+
+};
+
+
+reader.onerror =
+function(){
+
+reject(
+new Error(
+"File reading failed"
+)
+);
+
+};
+
 
 reader.readAsDataURL(file);
 
 }
+);
+
 }
 
 
@@ -893,10 +1055,16 @@ document
 
 
 const imageUrl =
-preview.dataset.image || "";
+preview.dataset.image ||
+"";
 
 
-if(!name || !price || !category || !imageUrl){
+if(
+!name ||
+!price ||
+!category ||
+!imageUrl
+){
 
 productMessage.textContent =
 "⚠️ Cika bayanan product gaba ɗaya.";
@@ -906,34 +1074,41 @@ return;
 }
 
 
-addProductBtn.disabled=true;
+addProductBtn.disabled =
+true;
 
 addProductBtn.textContent =
-"⏳ Ana adding...";
+"⏳ Ana ƙara product...";
 
-productMessage.textContent="";
+productMessage.textContent =
+"";
 
 
 try{
 
-await addDoc(
-collection(db,"products"),
-{
+await db
+.collection("products")
+.add({
 
-name:name,
+name:
+name,
 
-price:price,
+price:
+price,
 
-category:category,
+category:
+category,
 
-description:description,
+description:
+description,
 
-imageUrl:imageUrl,
+imageUrl:
+imageUrl,
 
-createdAt:serverTimestamp()
+createdAt:
+firebase.firestore.FieldValue.serverTimestamp()
 
-}
-);
+});
 
 
 productMessage.textContent =
@@ -957,7 +1132,8 @@ error.message;
 }
 
 
-addProductBtn.disabled=false;
+addProductBtn.disabled =
+false;
 
 addProductBtn.textContent =
 "➕ Add Product";
@@ -973,17 +1149,22 @@ async function loadProducts(){
 productList.innerHTML =
 "<p>⏳ Ana ɗauko products...</p>";
 
+
 try{
 
 const snapshot =
-await getDocs(
-collection(db,"products")
-);
-
-productList.innerHTML="";
+await db
+.collection("products")
+.get();
 
 
-if(snapshot.empty){
+productList.innerHTML =
+"";
+
+
+if(
+snapshot.empty
+){
 
 productList.innerHTML =
 "<p>🛍️ Babu products tukuna.</p>";
@@ -1004,38 +1185,54 @@ documentSnapshot.id;
 
 
 const card =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-card.className="product";
+card.className =
+"product";
 
 
 const image =
-document.createElement("img");
+document.createElement(
+"img"
+);
 
 image.src =
-product.imageUrl || "";
+product.imageUrl ||
+"";
 
 image.alt =
-product.name || "Product";
+product.name ||
+"Product";
 
 
 const info =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-info.className="product-info";
+info.className =
+"product-info";
 
 
 const title =
-document.createElement("h3");
+document.createElement(
+"h3"
+);
 
 title.textContent =
-product.name || "";
+product.name ||
+"";
 
 
 const price =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-price.className="price";
+price.className =
+"price";
 
 price.textContent =
 "₦"+
@@ -1045,23 +1242,35 @@ product.price || 0
 
 
 const category =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-category.className="category";
+category.className =
+"category";
 
 category.textContent =
-product.category || "";
+product.category ||
+"";
 
 
 const description =
-document.createElement("p");
+document.createElement(
+"p"
+);
 
 description.textContent =
-product.description || "";
+product.description ||
+"";
 
 
 const deleteButton =
-document.createElement("button");
+document.createElement(
+"button"
+);
+
+deleteButton.type =
+"button";
 
 deleteButton.className =
 "delete-btn";
@@ -1074,7 +1283,9 @@ deleteButton.addEventListener(
 "click",
 function(){
 
-deleteProduct(productId);
+deleteProduct(
+productId
+);
 
 }
 );
@@ -1114,7 +1325,7 @@ error.message;
 }
 
 
-/* DELETE */
+/* DELETE PRODUCT */
 
 async function deleteProduct(id){
 
@@ -1123,25 +1334,26 @@ confirm(
 "Ka tabbatar kana son cire wannan product?"
 );
 
+
 if(!confirmed){
 
 return;
 
 }
 
+
 try{
 
-await deleteDoc(
-doc(
-db,
-"products",
-id
-)
-);
+await db
+.collection("products")
+.doc(id)
+.delete();
+
 
 alert(
 "✅ An cire product cikin nasara."
 );
+
 
 await loadProducts();
 
@@ -1161,21 +1373,26 @@ error.message
 }
 
 
-/* CLEAR */
+/* CLEAR FORM */
 
 function clearForm(){
 
 productForm.reset();
 
-preview.src="";
+preview.src =
+"";
 
-preview.style.display="none";
+preview.style.display =
+"none";
 
-preview.dataset.image="";
+preview.dataset.image =
+"";
 
-imageInfo.textContent="";
+imageInfo.textContent =
+"";
 
-productMessage.textContent="";
+productMessage.textContent =
+"";
 
 }
 
@@ -1187,7 +1404,26 @@ document
 clearForm
 );
 
+
+/* SYSTEM ERROR */
+
+window.addEventListener(
+"error",
+function(event){
+
+console.error(event.error);
+
+systemError.style.display =
+"block";
+
+systemError.textContent =
+"⚠️ An samu matsala wajen buɗe Admin. Ka refresh page ɗin.";
+
+}
+);
+
 </script>
 
 </body>
+
   </html>
