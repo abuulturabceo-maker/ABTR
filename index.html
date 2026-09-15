@@ -31,7 +31,7 @@
     }
 
     header p {
-      margin: 8px 0 0;
+      margin: 7px 0 0;
       font-size: 15px;
     }
 
@@ -51,6 +51,11 @@
       border: 1px solid #ccc;
       border-radius: 10px;
       font-size: 16px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #075e54;
     }
 
     .categories {
@@ -85,7 +90,6 @@
       border-radius: 14px;
       padding: 15px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      position: relative;
     }
 
     .product-card img {
@@ -99,6 +103,7 @@
     .product-card h3 {
       color: #075e54;
       margin: 12px 0 6px;
+      font-size: 19px;
     }
 
     .price {
@@ -142,7 +147,6 @@
       display: block;
       width: 100%;
       padding: 12px;
-      border: 0;
       border-radius: 8px;
       background: #25d366;
       color: white;
@@ -161,20 +165,19 @@
       display: block;
       width: 100%;
       padding: 12px;
-      border: 0;
       border-radius: 8px;
       background: #999;
       color: white;
       font-size: 16px;
       font-weight: bold;
       text-align: center;
-      cursor: not-allowed;
     }
 
     .message {
       text-align: center;
       padding: 30px;
       color: #666;
+      grid-column: 1 / -1;
     }
 
     .show-all {
@@ -194,7 +197,27 @@
       background: #075e54;
       color: white;
       text-align: center;
-      padding: 20px;
+      padding: 25px 15px;
+    }
+
+    footer p {
+      margin: 7px 0;
+    }
+
+    .admin-link {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 9px 16px;
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .admin-link:hover {
+      background: rgba(255,255,255,0.12);
     }
   </style>
 </head>
@@ -203,72 +226,146 @@
 
 <header>
   <h1>ABTR</h1>
-  <p>ABUL-TURAB Online Market – Kasuwar Aminci da Riba</p>
-  <p>Trust • Safety • Profit</p>
+
+  <p>
+    ABUL-TURAB Online Market – Kasuwar Aminci da Riba
+  </p>
+
+  <p>
+    Trust • Safety • Profit
+  </p>
 </header>
+
 
 <div class="container">
 
+  <!-- SEARCH -->
+
   <div class="search-box">
+
     <input
       type="text"
       id="searchInput"
       placeholder="🔎 Search Products..."
       oninput="displayProducts()"
     >
+
   </div>
 
+
+  <!-- CATEGORIES -->
+
   <div class="categories">
-    <button class="active" onclick="filterCategory('All', this)">
+
+    <button
+      class="active"
+      onclick="filterCategory('All', this)"
+    >
       All
     </button>
 
-    <button onclick="filterCategory('Fashion', this)">
+    <button
+      onclick="filterCategory('Fashion', this)"
+    >
       Fashion
     </button>
 
-    <button onclick="filterCategory('Phone Accessories', this)">
+    <button
+      onclick="filterCategory('Phone Accessories', this)"
+    >
       Phone Accessories
     </button>
 
-    <button onclick="filterCategory('Health Products', this)">
+    <button
+      onclick="filterCategory('Health Products', this)"
+    >
       Health Products
     </button>
+
   </div>
 
+
+  <!-- PRODUCTS -->
+
   <div id="products" class="products">
+
     <div class="message">
       Ana loading Products...
     </div>
+
   </div>
 
 </div>
 
+
+<!-- FOOTER -->
+
 <footer>
-  <p>© ABTR – ABUL-TURAB Online Market</p>
-  <p>Kasuwar Aminci da Riba</p>
+
+  <p>
+    © ABTR – ABUL-TURAB Online Market
+  </p>
+
+  <p>
+    Kasuwar Aminci da Riba
+  </p>
+
+  <p>
+    Trust • Safety • Profit
+  </p>
+
+
+  <!-- ADMIN -->
+
+  <a
+    href="admin.html"
+    class="admin-link"
+  >
+    🔐 Admin
+  </a>
+
 </footer>
 
 
 <!-- FIREBASE -->
+
 <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
+
 
 <script>
 
 const firebaseConfig = {
-  apiKey: "AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
-  authDomain: "abtr-online-market.firebaseapp.com",
-  projectId: "abtr-online-market",
-  storageBucket: "abtr-online-market.firebasestorage.app",
-  messagingSenderId: "24953738228",
-  appId: "1:24953738228:web:f4d45ec73a847e1c46dfa1",
-  measurementId: "G-M2SPBLPXVN"
+
+  apiKey:
+    "AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
+
+  authDomain:
+    "abtr-online-market.firebaseapp.com",
+
+  projectId:
+    "abtr-online-market",
+
+  storageBucket:
+    "abtr-online-market.firebasestorage.app",
+
+  messagingSenderId:
+    "24953738228",
+
+  appId:
+    "1:24953738228:web:f4d45ec73a847e1c46dfa1",
+
+  measurementId:
+    "G-M2SPBLPXVN"
+
 };
+
 
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
+
 
 let allProducts = [];
 
@@ -281,37 +378,59 @@ let selectedCategory = "All";
 
 async function loadProducts() {
 
-  const productsContainer =
+  const container =
     document.getElementById("products");
 
-  productsContainer.innerHTML =
+
+  container.innerHTML =
     '<div class="message">Ana loading Products...</div>';
+
 
   try {
 
     const snapshot =
       await db.collection("products").get();
 
+
     allProducts = [];
+
 
     snapshot.forEach(function(doc) {
 
       allProducts.push({
+
         id: doc.id,
+
         ...doc.data()
+
       });
 
     });
 
+
     displayProducts();
+
 
   } catch (error) {
 
-    productsContainer.innerHTML =
+    container.innerHTML =
+
       '<div class="message">' +
+
       '<h3>❌ An samu matsala wajen loading Products.</h3>' +
-      '<p>' + error.message + '</p>' +
-      '<button class="show-all" onclick="loadProducts()">🔄 Retry</button>' +
+
+      '<p>' +
+
+      error.message +
+
+      '</p>' +
+
+      '<button class="show-all" onclick="loadProducts()">' +
+
+      '🔄 Retry' +
+
+      '</button>' +
+
       '</div>';
 
   }
@@ -328,335 +447,43 @@ function displayProducts() {
   const container =
     document.getElementById("products");
 
+
   const search =
-    document.getElementById("searchInput")
+    document
+      .getElementById("searchInput")
       .value
       .toLowerCase()
       .trim();
 
 
-  let filtered =
+  const filtered =
     allProducts.filter(function(product) {
 
+
       const name =
-        (product.name || "").toLowerCase();
+        (product.name || "")
+          .toLowerCase();
+
 
       const category =
-        (product.category || "").toLowerCase();
+        (product.category || "")
+          .toLowerCase();
+
 
       const description =
-        (product.description || "").toLowerCase();
+        (product.description || "")
+          .toLowerCase();
 
 
       const matchesSearch =
+
         name.includes(search) ||
+
         category.includes(search) ||
+
         description.includes(search);
 
 
       const matchesCategory =
-        selectedCategory === "All" ||
-        product.category === selectedCategory;
 
-
-      return matchesSearch && matchesCategory;
-
-    });
-
-
-  if (filtered.length === 0) {
-
-    container.innerHTML =
-      '<div class="message">' +
-      '<h3>❌ Babu product da ya dace da binciken.</h3>' +
-      '<button class="show-all" onclick="showAllProducts()">' +
-      'Nuna duk Products' +
-      '</button>' +
-      '</div>';
-
-    return;
-
-  }
-
-
-  container.innerHTML = "";
-
-
-  filtered.forEach(function(product) {
-
-    const card =
-      document.createElement("div");
-
-    card.className = "product-card";
-
-
-    /* IMAGE */
-
-    const image =
-      document.createElement("img");
-
-    image.src =
-      product.imageUrl || "";
-
-    image.alt =
-      product.name || "Product";
-
-
-    /* NAME */
-
-    const name =
-      document.createElement("h3");
-
-    name.textContent =
-      product.name || "Product";
-
-
-    /* PRICE */
-
-    const price =
-      document.createElement("div");
-
-    price.className = "price";
-
-    price.textContent =
-      "₦" +
-      Number(product.price || 0)
-        .toLocaleString();
-
-
-    /* CATEGORY */
-
-    const category =
-      document.createElement("div");
-
-    category.className = "category";
-
-    category.textContent =
-      product.category || "";
-
-
-    /* DESCRIPTION */
-
-    const description =
-      document.createElement("div");
-
-    description.className =
-      "description";
-
-    description.textContent =
-      product.description || "";
-
-
-    /* STOCK */
-
-    const stock =
-      document.createElement("div");
-
-
-    /*
-      Tsoffin products da basu da
-      inStock field za a dauke su
-      a matsayin In Stock.
-    */
-
-    const inStock =
-      product.inStock !== false;
-
-
-    if (inStock) {
-
-      stock.className =
-        "stock in-stock";
-
-      stock.textContent =
-        "🟢 IN STOCK";
-
-    } else {
-
-      stock.className =
-        "stock out-stock";
-
-      stock.textContent =
-        "🔴 OUT OF STOCK";
-
-    }
-
-
-    /* ORDER BUTTON */
-
-    if (inStock) {
-
-      const orderButton =
-        document.createElement("a");
-
-      orderButton.className =
-        "order-btn";
-
-      orderButton.href =
-        "#";
-
-      orderButton.textContent =
-        "📲 Order on WhatsApp";
-
-
-      orderButton.onclick =
-        function(event) {
-
-          event.preventDefault();
-
-          orderOnWhatsApp(product);
-
-        };
-
-
-      card.appendChild(image);
-      card.appendChild(name);
-      card.appendChild(price);
-      card.appendChild(category);
-      card.appendChild(description);
-      card.appendChild(stock);
-      card.appendChild(orderButton);
-
-    } else {
-
-      const disabledButton =
-        document.createElement("div");
-
-      disabledButton.className =
-        "disabled-btn";
-
-      disabledButton.textContent =
-        "🔴 Out of Stock";
-
-
-      card.appendChild(image);
-      card.appendChild(name);
-      card.appendChild(price);
-      card.appendChild(category);
-      card.appendChild(description);
-      card.appendChild(stock);
-      card.appendChild(disabledButton);
-
-    }
-
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================
-   WHATSAPP ORDER
-========================= */
-
-function orderOnWhatsApp(product) {
-
-  /*
-    WhatsApp number na Nigeria:
-    07013286941
-
-    WhatsApp international format:
-    2347013286941
-  */
-
-  const whatsappNumber =
-    "2347013286941";
-
-
-  const message =
-    "Assalamu Alaikum, ina son yin order daga ABTR Online Market.%0A%0A" +
-    "Product: " +
-    encodeURIComponent(product.name || "") +
-    "%0A" +
-    "Price: ₦" +
-    encodeURIComponent(
-      Number(product.price || 0)
-        .toLocaleString()
-    ) +
-    "%0A" +
-    "Category: " +
-    encodeURIComponent(product.category || "") +
-    "%0A%0A" +
-    "Ina son karin bayani akan wannan product.";
-
-
-  const url =
-    "https://wa.me/" +
-    whatsappNumber +
-    "?text=" +
-    message;
-
-
-  window.open(url, "_blank");
-
-}
-
-
-/* =========================
-   CATEGORY FILTER
-========================= */
-
-function filterCategory(category, button) {
-
-  selectedCategory = category;
-
-
-  document
-    .querySelectorAll(".categories button")
-    .forEach(function(btn) {
-
-      btn.classList.remove("active");
-
-    });
-
-
-  button.classList.add("active");
-
-
-  displayProducts();
-
-}
-
-
-/* =========================
-   SHOW ALL
-========================= */
-
-function showAllProducts() {
-
-  selectedCategory = "All";
-
-  document.getElementById("searchInput").value = "";
-
-
-  document
-    .querySelectorAll(".categories button")
-    .forEach(function(btn) {
-
-      btn.classList.remove("active");
-
-    });
-
-
-  document
-    .querySelector(".categories button")
-    .classList.add("active");
-
-
-  displayProducts();
-
-}
-
-
-/* =========================
-   START
-========================= */
-
-loadProducts();
-
-</script>
-
-</body>
-    </html>
+       
