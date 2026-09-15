@@ -1,1005 +1,662 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>ABTR - ABUL-TURAB Online Market</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<title>ABTR – ABUL-TURAB Online Market</title>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7f6;
+      color: #222;
+    }
 
-<style>
+    header {
+      background: #075e54;
+      color: white;
+      padding: 22px 15px;
+      text-align: center;
+    }
 
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
 
-body{
-font-family:Arial,sans-serif;
-background:#f4f7f5;
-color:#123b2a;
-line-height:1.6;
-}
+    header p {
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
 
-header{
-background:#087f3e;
-color:white;
-padding:20px 5%;
-text-align:center;
-}
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 15px;
+    }
 
-header h1{
-font-size:30px;
-margin-bottom:5px;
-}
+    .search-box {
+      margin: 20px 0;
+    }
 
-header p{
-font-size:15px;
-}
+    .search-box input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
 
-.hero{
-background:white;
-padding:40px 5%;
-text-align:center;
-}
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
 
-.hero h2{
-font-size:28px;
-color:#087f3e;
-margin-bottom:10px;
-}
+    .categories button {
+      border: 0;
+      padding: 10px 14px;
+      border-radius: 20px;
+      background: #ddd;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.hero p{
-max-width:700px;
-margin:0 auto 20px;
-}
+    .categories button.active {
+      background: #075e54;
+      color: white;
+    }
 
-.search-box{
-width:92%;
-max-width:650px;
-margin:20px auto;
-}
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
 
-.search-box input{
-width:100%;
-padding:15px;
-border:2px solid #ddd;
-border-radius:10px;
-font-size:17px;
-outline:none;
-}
+    .product-card {
+      background: white;
+      border-radius: 14px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: relative;
+    }
 
-.search-box input:focus{
-border-color:#087f3e;
-}
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #f5f5f5;
+    }
 
-.categories{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:10px;
-padding:20px 5%;
-}
+    .product-card h3 {
+      color: #075e54;
+      margin: 12px 0 6px;
+    }
 
-.category-btn{
-border:none;
-padding:12px 18px;
-border-radius:8px;
-background:#087f3e;
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 6px 0;
+    }
 
-.category-btn.active{
-background:#123b2a;
-}
+    .category {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
 
-.section{
-width:92%;
-max-width:1100px;
-margin:30px auto;
-}
+    .description {
+      color: #444;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
 
-.section h2{
-text-align:center;
-margin-bottom:25px;
-color:#087f3e;
-}
+    .stock {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-.product-grid{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(230px,1fr));
-gap:20px;
-}
+    .in-stock {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
 
-.product{
-background:white;
-border-radius:14px;
-overflow:hidden;
-box-shadow:
-0 4px 15px rgba(0,0,0,.08);
-}
+    .out-stock {
+      background: #ffebee;
+      color: #c62828;
+    }
 
-.product img{
-width:100%;
-height:220px;
-object-fit:cover;
-display:block;
-background:#eee;
-}
+    .order-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 0;
+      border-radius: 8px;
+      background: #25d366;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
 
-.product-info{
-padding:16px;
-}
+    .order-btn:hover {
+      opacity: 0.9;
+    }
 
-.product-info h3{
-font-size:19px;
-margin-bottom:7px;
-}
+    .disabled-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 0;
+      border-radius: 8px;
+      background: #999;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      cursor: not-allowed;
+    }
 
-.price{
-font-size:20px;
-font-weight:bold;
-color:#087f3e;
-margin-bottom:7px;
-}
+    .message {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+    }
 
-.category{
-font-size:13px;
-color:#777;
-margin-bottom:8px;
-}
+    .show-all {
+      display: block;
+      margin: 15px auto;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 8px;
+      background: #075e54;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.description{
-font-size:14px;
-margin-bottom:14px;
-}
-
-.whatsapp-btn{
-display:block;
-width:100%;
-text-align:center;
-background:#25D366;
-color:white;
-text-decoration:none;
-padding:12px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.loading{
-text-align:center;
-padding:35px;
-background:white;
-border-radius:10px;
-}
-
-.empty{
-text-align:center;
-padding:30px;
-background:white;
-border-radius:10px;
-}
-
-.error{
-text-align:center;
-padding:25px;
-background:#ffe5e5;
-color:#a00000;
-border-radius:10px;
-}
-
-.about{
-background:white;
-padding:35px 5%;
-margin-top:35px;
-}
-
-.about-content{
-max-width:800px;
-margin:auto;
-text-align:center;
-}
-
-.about h2{
-color:#087f3e;
-margin-bottom:15px;
-}
-
-.why{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(200px,1fr));
-gap:15px;
-max-width:900px;
-margin:25px auto 0;
-}
-
-.why div{
-padding:20px;
-background:#f4f7f5;
-border-radius:10px;
-text-align:center;
-}
-
-footer{
-background:#123b2a;
-color:white;
-text-align:center;
-padding:25px 5%;
-margin-top:40px;
-}
-
-.admin-link{
-display:inline-block;
-margin-top:10px;
-color:white;
-text-decoration:none;
-font-size:13px;
-}
-
-.refresh-btn{
-margin-top:12px;
-padding:10px 18px;
-border:none;
-border-radius:8px;
-background:#087f3e;
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-@media(max-width:600px){
-
-.hero h2{
-font-size:24px;
-}
-
-.product img{
-height:200px;
-}
-
-}
-
-</style>
-
+    footer {
+      margin-top: 40px;
+      background: #075e54;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
 </head>
 
 <body>
 
-
 <header>
-
-<h1>ABTR 🛍️</h1>
-
-<p>
-ABUL-TURAB Online Market –
-Kasuwar Aminci da Riba
-</p>
-
+  <h1>ABTR</h1>
+  <p>ABUL-TURAB Online Market – Kasuwar Aminci da Riba</p>
+  <p>Trust • Safety • Profit</p>
 </header>
 
+<div class="container">
 
-<section class="hero">
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="🔎 Search Products..."
+      oninput="displayProducts()"
+    >
+  </div>
 
-<h2>
-Welcome to ABUL-TURAB Online Market
-</h2>
+  <div class="categories">
+    <button class="active" onclick="filterCategory('All', this)">
+      All
+    </button>
 
-<p>
-Shop and sell quality products across
-Nigeria and West Africa with trust,
-safety, and profit.
-</p>
+    <button onclick="filterCategory('Fashion', this)">
+      Fashion
+    </button>
 
+    <button onclick="filterCategory('Phone Accessories', this)">
+      Phone Accessories
+    </button>
 
-<div class="search-box">
+    <button onclick="filterCategory('Health Products', this)">
+      Health Products
+    </button>
+  </div>
 
-<input
-type="search"
-id="searchInput"
-placeholder="🔎 Search products..."
-autocomplete="off"
->
-
-</div>
-
-</section>
-
-
-<div class="categories">
-
-<button
-class="category-btn active"
-data-category="All"
->
-🛍️ All
-</button>
-
-<button
-class="category-btn"
-data-category="Fashion"
->
-👕 Fashion
-</button>
-
-<button
-class="category-btn"
-data-category="Phone Accessories"
->
-📱 Phone Accessories
-</button>
-
-<button
-class="category-btn"
-data-category="Health Products"
->
-💊 Health Products
-</button>
+  <div id="products" class="products">
+    <div class="message">
+      Ana loading Products...
+    </div>
+  </div>
 
 </div>
-
-
-<section class="section">
-
-<h2>
-🛍️ Our Products
-</h2>
-
-
-<div
-id="productGrid"
-class="product-grid"
->
-
-<div class="loading">
-⏳ Ana ɗauko products...
-</div>
-
-</div>
-
-</section>
-
-
-<section class="about">
-
-<div class="about-content">
-
-<h2>
-About ABTR
-</h2>
-
-<p>
-ABTR – ABUL-TURAB Online Market
-is an African online marketplace
-connecting buyers and sellers across
-Nigeria and West Africa.
-</p>
-
-
-<div class="why">
-
-<div>
-
-<h3>🤝 Trust</h3>
-
-<p>
-Kasuwar Aminci da Riba.
-</p>
-
-</div>
-
-
-<div>
-
-<h3>🔒 Safety</h3>
-
-<p>
-Muna ƙoƙarin samar da
-kasuwanci cikin aminci.
-</p>
-
-</div>
-
-
-<div>
-
-<h3>💰 Profit</h3>
-
-<p>
-Dama ga masu saye da
-masu sayarwa.
-</p>
-
-</div>
-
-
-<div>
-
-<h3>🚚 Delivery</h3>
-
-<p>
-Ana iya tura kaya zuwa
-wurare daban-daban.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
 
 <footer>
-
-<p>
-© 2026 ABTR – ABUL-TURAB Online Market
-</p>
-
-<p>
-Kasuwar Aminci da Riba
-</p>
-
-<a
-href="admin.html"
-class="admin-link"
->
-🔐 Admin
-</a>
-
+  <p>© ABTR – ABUL-TURAB Online Market</p>
+  <p>Kasuwar Aminci da Riba</p>
 </footer>
 
 
 <!-- FIREBASE -->
-
 <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
-
 
 <script>
 
-/* FIREBASE CONFIG */
-
 const firebaseConfig = {
-
-apiKey:
-"AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
-
-authDomain:
-"abtr-online-market.firebaseapp.com",
-
-projectId:
-"abtr-online-market",
-
-storageBucket:
-"abtr-online-market.firebasestorage.app",
-
-messagingSenderId:
-"24953738228",
-
-appId:
-"1:24953738228:web:f4d45ec73a847e1c46dfa1",
-
-measurementId:
-"G-M2SPBLPXVN"
-
+  apiKey: "AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
+  authDomain: "abtr-online-market.firebaseapp.com",
+  projectId: "abtr-online-market",
+  storageBucket: "abtr-online-market.firebasestorage.app",
+  messagingSenderId: "24953738228",
+  appId: "1:24953738228:web:f4d45ec73a847e1c46dfa1",
+  measurementId: "G-M2SPBLPXVN"
 };
-
-
-/* START FIREBASE */
 
 firebase.initializeApp(firebaseConfig);
 
-const db =
-firebase.firestore();
-
-
-/* ELEMENTS */
-
-const productGrid =
-document.getElementById("productGrid");
-
-const searchInput =
-document.getElementById("searchInput");
-
-
-/* DATA */
+const db = firebase.firestore();
 
 let allProducts = [];
 
 let selectedCategory = "All";
 
 
-/* LOAD PRODUCTS */
+/* =========================
+   LOAD PRODUCTS
+========================= */
 
-async function loadProducts(){
+async function loadProducts() {
 
-productGrid.innerHTML = `
-<div class="loading">
-⏳ Ana ɗauko products...
-</div>
-`;
+  const productsContainer =
+    document.getElementById("products");
 
+  productsContainer.innerHTML =
+    '<div class="message">Ana loading Products...</div>';
 
-try{
+  try {
 
-const snapshot =
-await db
-.collection("products")
-.get();
+    const snapshot =
+      await db.collection("products").get();
 
+    allProducts = [];
 
-allProducts = [];
+    snapshot.forEach(function(doc) {
 
+      allProducts.push({
+        id: doc.id,
+        ...doc.data()
+      });
 
-snapshot.forEach(
-function(doc){
+    });
 
-const data =
-doc.data();
+    displayProducts();
 
+  } catch (error) {
 
-allProducts.push({
+    productsContainer.innerHTML =
+      '<div class="message">' +
+      '<h3>❌ An samu matsala wajen loading Products.</h3>' +
+      '<p>' + error.message + '</p>' +
+      '<button class="show-all" onclick="loadProducts()">🔄 Retry</button>' +
+      '</div>';
 
-id:doc.id,
-
-name:data.name || "",
-
-price:data.price || 0,
-
-category:data.category || "",
-
-description:data.description || "",
-
-imageUrl:data.imageUrl || ""
-
-});
-
-});
-
-
-console.log(
-"ABTR Products:",
-allProducts
-);
-
-
-/* SHOW PRODUCTS */
-
-displayProducts();
-
-
-}
-
-catch(error){
-
-console.error(error);
-
-
-productGrid.innerHTML = `
-
-<div class="error">
-
-❌ An kasa ɗauko products.
-
-<br><br>
-
-${error.message}
-
-<br><br>
-
-<button
-class="refresh-btn"
-onclick="loadProducts()"
->
-🔄 Sake gwadawa
-</button>
-
-</div>
-
-`;
-
-}
+  }
 
 }
 
 
-/* DISPLAY PRODUCTS */
+/* =========================
+   DISPLAY PRODUCTS
+========================= */
 
-function displayProducts(){
+function displayProducts() {
 
-const searchText =
-searchInput.value
-.trim()
-.toLowerCase();
+  const container =
+    document.getElementById("products");
 
+  const search =
+    document.getElementById("searchInput")
+      .value
+      .toLowerCase()
+      .trim();
 
-const filtered =
-allProducts.filter(
-function(product){
 
+  let filtered =
+    allProducts.filter(function(product) {
 
-/* CATEGORY */
+      const name =
+        (product.name || "").toLowerCase();
 
-const categoryText =
-String(
-product.category
-).trim().toLowerCase();
+      const category =
+        (product.category || "").toLowerCase();
 
+      const description =
+        (product.description || "").toLowerCase();
 
-const selectedText =
-String(
-selectedCategory
-).trim().toLowerCase();
 
+      const matchesSearch =
+        name.includes(search) ||
+        category.includes(search) ||
+        description.includes(search);
 
-const matchesCategory =
-selectedText === "all" ||
-categoryText === selectedText;
 
+      const matchesCategory =
+        selectedCategory === "All" ||
+        product.category === selectedCategory;
 
-/* SEARCH */
 
-const searchableText = (
+      return matchesSearch && matchesCategory;
 
-String(product.name) +
-" " +
-String(product.category) +
-" " +
-String(product.description)
+    });
 
-)
-.toLowerCase();
 
+  if (filtered.length === 0) {
 
-const matchesSearch =
-searchText === "" ||
-searchableText.includes(searchText);
+    container.innerHTML =
+      '<div class="message">' +
+      '<h3>❌ Babu product da ya dace da binciken.</h3>' +
+      '<button class="show-all" onclick="showAllProducts()">' +
+      'Nuna duk Products' +
+      '</button>' +
+      '</div>';
 
+    return;
 
-return (
-matchesCategory &&
-matchesSearch
-);
+  }
 
-}
-);
 
+  container.innerHTML = "";
 
-/* EMPTY */
 
-if(filtered.length === 0){
+  filtered.forEach(function(product) {
 
-productGrid.innerHTML = `
+    const card =
+      document.createElement("div");
 
-<div class="empty">
+    card.className = "product-card";
 
-🛍️ Babu product da ya dace
-da wannan binciken.
 
-<br><br>
+    /* IMAGE */
 
-<button
-class="refresh-btn"
-onclick="clearSearch()"
->
-🔄 Nuna duk Products
-</button>
+    const image =
+      document.createElement("img");
 
-</div>
+    image.src =
+      product.imageUrl || "";
 
-`;
+    image.alt =
+      product.name || "Product";
 
-return;
 
-}
+    /* NAME */
 
+    const name =
+      document.createElement("h3");
 
-/* CLEAR */
+    name.textContent =
+      product.name || "Product";
 
-productGrid.innerHTML = "";
 
+    /* PRICE */
 
-/* CREATE PRODUCTS */
+    const price =
+      document.createElement("div");
 
-filtered.forEach(
-function(product){
+    price.className = "price";
 
+    price.textContent =
+      "₦" +
+      Number(product.price || 0)
+        .toLocaleString();
 
-const card =
-document.createElement("div");
 
-card.className =
-"product";
+    /* CATEGORY */
 
+    const category =
+      document.createElement("div");
 
-/* IMAGE */
+    category.className = "category";
 
-const image =
-document.createElement("img");
+    category.textContent =
+      product.category || "";
 
-image.src =
-product.imageUrl;
 
-image.alt =
-product.name || "ABTR Product";
+    /* DESCRIPTION */
 
+    const description =
+      document.createElement("div");
 
-image.onerror =
-function(){
+    description.className =
+      "description";
 
-this.src =
-"data:image/svg+xml;charset=UTF-8," +
-encodeURIComponent(
-`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
-<rect width="100%" height="100%" fill="#eeeeee"/>
-<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#777" font-size="28">
-ABTR Product
-</text>
-</svg>`
-);
+    description.textContent =
+      product.description || "";
 
-};
 
+    /* STOCK */
 
-/* INFO */
+    const stock =
+      document.createElement("div");
 
-const info =
-document.createElement("div");
 
-info.className =
-"product-info";
+    /*
+      Tsoffin products da basu da
+      inStock field za a dauke su
+      a matsayin In Stock.
+    */
 
+    const inStock =
+      product.inStock !== false;
 
-/* NAME */
 
-const title =
-document.createElement("h3");
+    if (inStock) {
 
-title.textContent =
-product.name;
+      stock.className =
+        "stock in-stock";
 
+      stock.textContent =
+        "🟢 IN STOCK";
 
-/* PRICE */
+    } else {
 
-const price =
-document.createElement("div");
+      stock.className =
+        "stock out-stock";
 
-price.className =
-"price";
+      stock.textContent =
+        "🔴 OUT OF STOCK";
 
-price.textContent =
-"₦" +
-Number(
-product.price || 0
-).toLocaleString();
+    }
 
 
-/* CATEGORY */
+    /* ORDER BUTTON */
 
-const category =
-document.createElement("div");
+    if (inStock) {
 
-category.className =
-"category";
+      const orderButton =
+        document.createElement("a");
 
-category.textContent =
-product.category;
+      orderButton.className =
+        "order-btn";
 
+      orderButton.href =
+        "#";
 
-/* DESCRIPTION */
+      orderButton.textContent =
+        "📲 Order on WhatsApp";
 
-const description =
-document.createElement("div");
 
-description.className =
-"description";
+      orderButton.onclick =
+        function(event) {
 
-description.textContent =
-product.description;
+          event.preventDefault();
 
+          orderOnWhatsApp(product);
 
-/* WHATSAPP */
+        };
 
-const whatsapp =
-document.createElement("a");
 
-whatsapp.className =
-"whatsapp-btn";
+      card.appendChild(image);
+      card.appendChild(name);
+      card.appendChild(price);
+      card.appendChild(category);
+      card.appendChild(description);
+      card.appendChild(stock);
+      card.appendChild(orderButton);
 
-whatsapp.textContent =
-"🟢 Order on WhatsApp";
+    } else {
 
-whatsapp.href =
-"#";
+      const disabledButton =
+        document.createElement("div");
 
+      disabledButton.className =
+        "disabled-btn";
 
-whatsapp.addEventListener(
-"click",
-function(event){
+      disabledButton.textContent =
+        "🔴 Out of Stock";
 
-event.preventDefault();
 
+      card.appendChild(image);
+      card.appendChild(name);
+      card.appendChild(price);
+      card.appendChild(category);
+      card.appendChild(description);
+      card.appendChild(stock);
+      card.appendChild(disabledButton);
 
-const message =
-encodeURIComponent(
+    }
 
-`Hello ABTR, I want to order this product:
 
-Product: ${product.name}
+    container.appendChild(card);
 
-Price: ₦${Number(
-product.price || 0
-).toLocaleString()}
-
-Category: ${product.category}
-
-Please give me more information.`
-
-);
-
-
-/* CHOOSE NUMBER */
-
-const useNigeria =
-confirm(
-"OK = WhatsApp Nigeria\n\nCancel = WhatsApp Libya"
-);
-
-
-const number =
-useNigeria
-?
-"2347020302336"
-:
-"218910605267";
-
-
-window.open(
-"https://wa.me/" +
-number +
-"?text=" +
-message,
-"_blank"
-);
-
-}
-);
-
-
-/* ADD */
-
-info.appendChild(title);
-
-info.appendChild(price);
-
-info.appendChild(category);
-
-info.appendChild(description);
-
-info.appendChild(whatsapp);
-
-
-card.appendChild(image);
-
-card.appendChild(info);
-
-
-productGrid.appendChild(card);
-
-}
-);
+  });
 
 }
 
 
-/* SEARCH */
+/* =========================
+   WHATSAPP ORDER
+========================= */
 
-searchInput.addEventListener(
-"input",
-function(){
+function orderOnWhatsApp(product) {
 
-displayProducts();
+  /*
+    WhatsApp number na Nigeria:
+    07013286941
 
-}
-);
+    WhatsApp international format:
+    2347013286941
+  */
 
-
-/* CATEGORY BUTTONS */
-
-document
-.querySelectorAll(".category-btn")
-.forEach(
-function(button){
-
-button.addEventListener(
-"click",
-function(){
-
-selectedCategory =
-this.dataset.category;
+  const whatsappNumber =
+    "2347013286941";
 
 
-/* ACTIVE */
-
-document
-.querySelectorAll(".category-btn")
-.forEach(
-function(btn){
-
-btn.classList.remove(
-"active"
-);
-
-}
-);
-
-
-this.classList.add(
-"active"
-);
+  const message =
+    "Assalamu Alaikum, ina son yin order daga ABTR Online Market.%0A%0A" +
+    "Product: " +
+    encodeURIComponent(product.name || "") +
+    "%0A" +
+    "Price: ₦" +
+    encodeURIComponent(
+      Number(product.price || 0)
+        .toLocaleString()
+    ) +
+    "%0A" +
+    "Category: " +
+    encodeURIComponent(product.category || "") +
+    "%0A%0A" +
+    "Ina son karin bayani akan wannan product.";
 
 
-displayProducts();
-
-}
-);
-
-}
-);
+  const url =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    message;
 
 
-/* CLEAR SEARCH */
-
-function clearSearch(){
-
-searchInput.value = "";
-
-selectedCategory = "All";
-
-
-document
-.querySelectorAll(".category-btn")
-.forEach(
-function(btn){
-
-btn.classList.remove(
-"active"
-);
-
-}
-);
-
-
-document
-.querySelector(
-'[data-category="All"]'
-)
-.classList.add("active");
-
-
-displayProducts();
+  window.open(url, "_blank");
 
 }
 
 
-/* START */
+/* =========================
+   CATEGORY FILTER
+========================= */
+
+function filterCategory(category, button) {
+
+  selectedCategory = category;
+
+
+  document
+    .querySelectorAll(".categories button")
+    .forEach(function(btn) {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  button.classList.add("active");
+
+
+  displayProducts();
+
+}
+
+
+/* =========================
+   SHOW ALL
+========================= */
+
+function showAllProducts() {
+
+  selectedCategory = "All";
+
+  document.getElementById("searchInput").value = "";
+
+
+  document
+    .querySelectorAll(".categories button")
+    .forEach(function(btn) {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  document
+    .querySelector(".categories button")
+    .classList.add("active");
+
+
+  displayProducts();
+
+}
+
+
+/* =========================
+   START
+========================= */
 
 loadProducts();
 
 </script>
 
-
 </body>
-
-  </html>
+    </html>
