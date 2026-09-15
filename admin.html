@@ -1,1429 +1,1057 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABTR Admin Panel</title>
 
-<meta charset="UTF-8">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7f6;
+      color: #222;
+    }
 
-<title>ABTR Admin – Product Manager</title>
+    header {
+      background: #075e54;
+      color: white;
+      padding: 18px;
+      text-align: center;
+    }
 
-<style>
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
 
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
+    header p {
+      margin: 6px 0 0;
+      font-size: 14px;
+    }
 
-body{
-font-family:Arial,sans-serif;
-background:#f4f7f5;
-color:#123b2a;
-min-height:100vh;
-}
+    .container {
+      max-width: 850px;
+      margin: 20px auto;
+      padding: 15px;
+    }
 
-header{
-background:#087f3e;
-color:white;
-padding:20px;
-text-align:center;
-}
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
 
-header h1{
-margin-bottom:6px;
-}
+    h2 {
+      margin-top: 0;
+      color: #075e54;
+    }
 
-.back{
-display:inline-block;
-margin-top:10px;
-color:white;
-text-decoration:none;
-}
+    label {
+      display: block;
+      margin-top: 13px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
 
-#adminLogin{
-width:92%;
-max-width:420px;
-margin:50px auto;
-padding:25px;
-background:white;
-border-radius:15px;
-box-shadow:0 4px 15px rgba(0,0,0,.10);
-}
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
 
-#adminLogin h2{
-margin-bottom:10px;
-}
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
 
-#adminLogin p{
-margin-bottom:18px;
-line-height:1.5;
-}
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+    }
 
-#adminLogin input{
-width:100%;
-padding:13px;
-margin:8px 0;
-border:1px solid #ccc;
-border-radius:8px;
-font-size:16px;
-}
+    .login-btn,
+    .save-btn {
+      width: 100%;
+      background: #075e54;
+      color: white;
+    }
 
-#loginBtn{
-width:100%;
-padding:13px;
-margin-top:10px;
-border:none;
-border-radius:8px;
-background:#087f3e;
-color:white;
-font-weight:bold;
-font-size:16px;
-cursor:pointer;
-}
+    .login-btn:hover,
+    .save-btn:hover {
+      background: #064c45;
+    }
 
-#loginBtn:disabled{
-opacity:.7;
-}
+    .logout-btn {
+      background: #c62828;
+      color: white;
+    }
 
-#loginMessage{
-margin-top:12px;
-text-align:center;
-line-height:1.5;
-}
+    .cancel-btn {
+      background: #777;
+      color: white;
+      margin-left: 8px;
+    }
 
-#adminContent{
-display:none;
-}
+    .edit-btn {
+      background: #1976d2;
+      color: white;
+    }
 
-.container{
-width:92%;
-max-width:900px;
-margin:30px auto;
-}
+    .stock-btn {
+      background: #2e7d32;
+      color: white;
+    }
 
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-margin-bottom:20px;
-}
+    .out-btn {
+      background: #c62828;
+      color: white;
+    }
 
-.logout-btn{
-background:#c62828;
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:8px;
-cursor:pointer;
-font-weight:bold;
-}
+    .delete-btn {
+      background: #b71c1c;
+      color: white;
+    }
 
-.card{
-background:white;
-padding:25px;
-border-radius:15px;
-box-shadow:0 4px 15px rgba(0,0,0,.08);
-margin-bottom:25px;
-}
+    .hidden {
+      display: none;
+    }
 
-.card h2{
-margin-bottom:20px;
-}
+    .status {
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 12px;
+      display: none;
+    }
 
-.notice{
-background:#fff8d8;
-border-left:5px solid #e0b000;
-padding:15px;
-line-height:1.6;
-margin-bottom:20px;
-border-radius:7px;
-}
+    .success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
 
-label{
-display:block;
-font-weight:bold;
-margin:14px 0 7px;
-}
+    .error {
+      background: #ffebee;
+      color: #c62828;
+    }
 
-input,
-select,
-textarea{
-width:100%;
-padding:13px;
-border:1px solid #ccc;
-border-radius:8px;
-font-size:16px;
-}
+    .product-card {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #fff;
+    }
 
-textarea{
-min-height:100px;
-resize:vertical;
-}
+    .product-card img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #f5f5f5;
+      margin-bottom: 10px;
+    }
 
-.file-box{
-border:2px dashed #087f3e;
-padding:18px;
-border-radius:10px;
-text-align:center;
-background:#f8fffb;
-}
+    .product-card h3 {
+      margin: 5px 0;
+      color: #075e54;
+    }
 
-.file-box input{
-border:none;
-padding:0;
-}
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 6px 0;
+    }
 
-#preview{
-display:none;
-width:100%;
-max-height:300px;
-object-fit:contain;
-margin-top:15px;
-border-radius:10px;
-background:#eee;
-}
+    .category {
+      font-size: 14px;
+      color: #666;
+      margin: 5px 0;
+    }
 
-#imageInfo{
-margin-top:8px;
-font-size:13px;
-color:#666;
-text-align:center;
-}
+    .description {
+      color: #444;
+      line-height: 1.5;
+    }
 
-.btn{
-border:none;
-padding:13px 20px;
-border-radius:8px;
-cursor:pointer;
-font-weight:bold;
-font-size:15px;
-margin-top:18px;
-}
+    .in-stock {
+      display: inline-block;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 6px;
+    }
 
-.add-btn{
-background:#087f3e;
-color:white;
-width:100%;
-}
+    .out-stock {
+      display: inline-block;
+      background: #ffebee;
+      color: #c62828;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 6px;
+    }
 
-.clear-btn{
-background:#ddd;
-color:#333;
-width:100%;
-}
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
 
-.product-list{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:18px;
-}
+    .actions button {
+      margin-top: 0;
+    }
 
-.product{
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
+    .preview {
+      max-width: 180px;
+      max-height: 180px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: none;
+    }
 
-.product img{
-width:100%;
-height:180px;
-object-fit:cover;
-background:#eee;
-}
+    .login-info {
+      text-align: center;
+      color: #555;
+    }
 
-.product-info{
-padding:15px;
-}
-
-.product-info h3{
-margin-bottom:8px;
-}
-
-.price{
-color:#087f3e;
-font-weight:bold;
-font-size:18px;
-margin-bottom:8px;
-}
-
-.category{
-font-size:13px;
-color:#666;
-margin-bottom:8px;
-}
-
-.delete-btn{
-width:100%;
-background:#c62828;
-color:white;
-border:none;
-padding:11px;
-border-radius:7px;
-cursor:pointer;
-font-weight:bold;
-margin-top:10px;
-}
-
-#productMessage{
-margin-top:15px;
-text-align:center;
-font-weight:bold;
-line-height:1.5;
-}
-
-.error-box{
-width:92%;
-max-width:900px;
-margin:20px auto;
-padding:15px;
-background:#ffe5e5;
-color:#a00000;
-border-radius:10px;
-display:none;
-}
-
-@media(max-width:600px){
-
-.container{
-width:94%;
-}
-
-.topbar{
-align-items:flex-start;
-flex-direction:column;
-}
-
-}
-
-</style>
-
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-
-<h1>ABTR 🛍️</h1>
-
-<p>ABUL-TURAB Online Market</p>
-
-<a href="index.html" class="back">
-← Back to Website
-</a>
-
+  <h1>ABTR ONLINE MARKET</h1>
+  <p>Admin Product Management</p>
 </header>
-
-
-<div id="systemError" class="error-box"></div>
-
-
-<!-- LOGIN -->
-
-<div id="adminLogin">
-
-<h2>🔐 ABTR Admin Login</h2>
-
-<p>
-Shiga domin sarrafa kayayyakin ABTR.
-</p>
-
-<input
-type="email"
-id="adminEmail"
-placeholder="Admin Email"
-autocomplete="email"
->
-
-<input
-type="password"
-id="adminPassword"
-placeholder="Password"
-autocomplete="current-password"
->
-
-<button
-type="button"
-id="loginBtn"
->
-🔑 Login
-</button>
-
-<div id="loginMessage"></div>
-
-</div>
-
-
-<!-- ADMIN CONTENT -->
-
-<div id="adminContent">
 
 <div class="container">
 
-<div class="topbar">
+  <!-- LOGIN -->
+  <div id="loginBox" class="box">
+    <h2>🔐 Admin Login</h2>
 
-<h2>ABTR Product Manager</h2>
+    <p class="login-info">
+      Shiga da email da password na Admin.
+    </p>
 
-<button
-type="button"
-class="logout-btn"
-id="logoutBtn"
->
-🚪 Logout
-</button>
+    <label>Email</label>
+    <input type="email" id="email" placeholder="Admin Email">
 
-</div>
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Password">
 
+    <button class="login-btn" onclick="login()">Login</button>
 
-<div class="notice">
-
-<strong>Admin Panel</strong>
-
-<br>
-
-Wannan shafin na ABTR ne domin sarrafa kayayyaki.
-
-</div>
+    <div id="loginStatus" class="status"></div>
+  </div>
 
 
-<!-- ADD PRODUCT -->
+  <!-- ADMIN PANEL -->
+  <div id="adminPanel" class="hidden">
 
-<div class="card">
-
-<h2>➕ Add New Product</h2>
-
-<form id="productForm">
-
-<label>
-Product Name
-</label>
-
-<input
-type="text"
-id="productName"
-placeholder="Example: Premium Jallabiya"
-required
->
+    <div class="box">
+      <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+    </div>
 
 
-<label>
-Price
-</label>
+    <!-- PRODUCT FORM -->
+    <div class="box">
 
-<input
-type="number"
-id="productPrice"
-placeholder="25000"
-min="1"
-required
->
+      <h2 id="formTitle">➕ Add New Product</h2>
 
+      <label>Product Name</label>
+      <input type="text" id="productName" placeholder="Misali: Elegant Fashion">
 
-<label>
-Category
-</label>
+      <label>Price (₦)</label>
+      <input type="number" id="productPrice" placeholder="25000">
 
-<select
-id="productCategory"
-required
->
+      <label>Category</label>
+      <select id="productCategory">
+        <option value="Fashion">Fashion</option>
+        <option value="Phone Accessories">Phone Accessories</option>
+        <option value="Health Products">Health Products</option>
+      </select>
 
-<option value="">
-Select Category
-</option>
+      <label>Description</label>
+      <textarea id="productDescription" placeholder="Bayani akan product..."></textarea>
 
-<option value="Fashion">
-Fashion
-</option>
+      <label>Product Picture</label>
+      <input type="file" id="productImage" accept="image/*" onchange="previewImage(event)">
 
-<option value="Phone Accessories">
-Phone Accessories
-</option>
+      <img id="imagePreview" class="preview">
 
-<option value="Health Products">
-Health Products
-</option>
+      <label>Stock Status</label>
+      <select id="productStock">
+        <option value="true">🟢 In Stock</option>
+        <option value="false">🔴 Out of Stock</option>
+      </select>
 
-</select>
+      <button id="saveButton" class="save-btn" onclick="saveProduct()">
+        ➕ Add Product
+      </button>
 
+      <button id="cancelButton" class="cancel-btn hidden" onclick="cancelEdit()">
+        Cancel Edit
+      </button>
 
-<label>
-Product Description
-</label>
+      <div id="systemStatus" class="status"></div>
 
-<textarea
-id="productDescription"
-placeholder="Write a short description..."
-></textarea>
+    </div>
 
 
-<label>
-Product Picture
-</label>
+    <!-- PRODUCTS -->
+    <div class="box">
+      <h2>📦 Products</h2>
 
-<div class="file-box">
+      <div id="productsList">
+        <div class="loading">Ana loading products...</div>
+      </div>
+    </div>
 
-<input
-type="file"
-id="productImage"
-accept="image/*"
-required
->
-
-<p style="margin-top:10px;">
-📷 Zaɓi hoto daga Gallery
-</p>
-
-</div>
-
-
-<img
-id="preview"
-alt="Product preview"
->
-
-
-<div id="imageInfo"></div>
-
-
-<button
-type="submit"
-class="btn add-btn"
-id="addProductBtn"
->
-➕ Add Product
-</button>
-
-
-<button
-type="button"
-class="btn clear-btn"
-id="clearBtn"
->
-Clear
-</button>
-
-
-<div id="productMessage"></div>
-
-</form>
-
-</div>
-
-
-<!-- PRODUCTS -->
-
-<div class="card">
-
-<h2>
-🛍️ Products
-</h2>
-
-<div
-id="productList"
-class="product-list"
-></div>
-
-</div>
-
-</div>
+  </div>
 
 </div>
 
 
 <!-- FIREBASE -->
-
 <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
 
 
 <script>
 
-/* FIREBASE CONFIG */
-
 const firebaseConfig = {
-
-apiKey:
-"AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
-
-authDomain:
-"abtr-online-market.firebaseapp.com",
-
-projectId:
-"abtr-online-market",
-
-storageBucket:
-"abtr-online-market.firebasestorage.app",
-
-messagingSenderId:
-"24953738228",
-
-appId:
-"1:24953738228:web:f4d45ec73a847e1c46dfa1",
-
-measurementId:
-"G-M2SPBLPXVN"
-
+  apiKey: "AIzaSyApvfs-5uTuJWd7tz73uycMPRdmX6RrGRw",
+  authDomain: "abtr-online-market.firebaseapp.com",
+  projectId: "abtr-online-market",
+  storageBucket: "abtr-online-market.firebasestorage.app",
+  messagingSenderId: "24953738228",
+  appId: "1:24953738228:web:f4d45ec73a847e1c46dfa1",
+  measurementId: "G-M2SPBLPXVN"
 };
-
-
-/* START FIREBASE */
 
 firebase.initializeApp(firebaseConfig);
 
-const auth =
-firebase.auth();
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-const db =
-firebase.firestore();
-
-
-/* ELEMENTS */
-
-const adminLogin =
-document.getElementById("adminLogin");
-
-const adminContent =
-document.getElementById("adminContent");
-
-const loginBtn =
-document.getElementById("loginBtn");
-
-const logoutBtn =
-document.getElementById("logoutBtn");
-
-const loginMessage =
-document.getElementById("loginMessage");
-
-const productForm =
-document.getElementById("productForm");
-
-const productList =
-document.getElementById("productList");
-
-const productMessage =
-document.getElementById("productMessage");
-
-const productImage =
-document.getElementById("productImage");
-
-const preview =
-document.getElementById("preview");
-
-const imageInfo =
-document.getElementById("imageInfo");
-
-const addProductBtn =
-document.getElementById("addProductBtn");
-
-const systemError =
-document.getElementById("systemError");
+let editingProductId = null;
+let oldImageUrl = "";
 
 
-/* LOGIN */
+/* =========================
+   LOGIN
+========================= */
 
-loginBtn.addEventListener(
-"click",
-async function(){
+async function login() {
 
-const email =
-document
-.getElementById("adminEmail")
-.value
-.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
 
-const password =
-document
-.getElementById("adminPassword")
-.value;
+  const status = document.getElementById("loginStatus");
 
+  if (!email || !password) {
+    showStatus(status, "❌ Saka email da password.", "error");
+    return;
+  }
 
-if(!email || !password){
+  try {
 
-loginMessage.textContent =
-"⚠️ Saka email da password.";
+    await auth.signInWithEmailAndPassword(email, password);
 
-return;
+    showStatus(status, "✅ Login yayi nasara.", "success");
 
+  } catch (error) {
+
+    showStatus(status, "❌ Login error: " + error.message, "error");
+
+  }
 }
 
 
-loginBtn.disabled=true;
+/* =========================
+   AUTH STATE
+========================= */
 
-loginBtn.textContent =
-"⏳ Ana shiga...";
+auth.onAuthStateChanged(function(user) {
 
-loginMessage.textContent =
-"";
+  if (user) {
 
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("adminPanel").classList.remove("hidden");
 
-try{
+    loadProducts();
 
-await auth.signInWithEmailAndPassword(
-email,
-password
-);
+  } else {
 
-loginMessage.textContent =
-"✅ Ana buɗe Admin...";
+    document.getElementById("loginBox").classList.remove("hidden");
+    document.getElementById("adminPanel").classList.add("hidden");
 
-}
-
-catch(error){
-
-console.error(error);
-
-let message =
-"❌ An kasa shiga.";
-
-if(
-error.code ===
-"auth/invalid-credential"
-){
-
-message =
-"❌ Email ko password ba daidai ba ne.";
-
-}
-
-else if(
-error.code ===
-"auth/user-not-found"
-){
-
-message =
-"❌ Ba a samu wannan Admin email ba.";
-
-}
-
-else if(
-error.code ===
-"auth/wrong-password"
-){
-
-message =
-"❌ Password ba daidai ba ne.";
-
-}
-
-else if(
-error.code ===
-"auth/invalid-email"
-){
-
-message =
-"❌ Email ɗin ba daidai ba ne.";
-
-}
-
-else{
-
-message =
-"❌ "+error.message;
-
-}
-
-loginMessage.textContent =
-message;
-
-}
-
-
-loginBtn.disabled=false;
-
-loginBtn.textContent =
-"🔑 Login";
-
-}
-);
-
-
-/* LOGOUT */
-
-logoutBtn.addEventListener(
-"click",
-async function(){
-
-try{
-
-await auth.signOut();
-
-}
-catch(error){
-
-console.error(error);
-
-}
-
-}
-);
-
-
-/* AUTH STATE */
-
-auth.onAuthStateChanged(
-function(user){
-
-if(user){
-
-adminLogin.style.display =
-"none";
-
-adminContent.style.display =
-"block";
-
-loginMessage.textContent =
-"";
-
-loadProducts();
-
-}
-
-else{
-
-adminLogin.style.display =
-"block";
-
-adminContent.style.display =
-"none";
-
-}
-
-}
-);
-
-
-/* IMAGE SELECT */
-
-productImage.addEventListener(
-"change",
-async function(){
-
-const file =
-this.files[0];
-
-if(!file){
-
-preview.style.display =
-"none";
-
-preview.src =
-"";
-
-imageInfo.textContent =
-"";
-
-return;
-
-}
-
-
-if(
-!file.type.startsWith("image/")
-){
-
-alert(
-"⚠️ Zaɓi hoto kawai."
-);
-
-this.value="";
-
-return;
-
-}
-
-
-imageInfo.textContent =
-"⏳ Ana shirya hoton...";
-
-
-try{
-
-const compressedImage =
-await compressImage(file);
-
-preview.src =
-compressedImage;
-
-preview.style.display =
-"block";
-
-preview.dataset.image =
-compressedImage;
-
-imageInfo.textContent =
-"✅ An shirya hoton.";
-
-}
-
-catch(error){
-
-console.error(error);
-
-imageInfo.textContent =
-"❌ An kasa shirya hoton.";
-
-}
-
-}
-);
-
-
-/* COMPRESS IMAGE */
-
-function compressImage(file){
-
-return new Promise(
-function(resolve,reject){
-
-const reader =
-new FileReader();
-
-
-reader.onload =
-function(event){
-
-const img =
-new Image();
-
-
-img.onload =
-function(){
-
-const maxWidth =
-700;
-
-const maxHeight =
-700;
-
-let width =
-img.width;
-
-let height =
-img.height;
-
-
-if(
-width > maxWidth
-){
-
-height =
-height *
-maxWidth /
-width;
-
-width =
-maxWidth;
-
-}
-
-
-if(
-height > maxHeight
-){
-
-width =
-width *
-maxHeight /
-height;
-
-height =
-maxHeight;
-
-}
-
-
-const canvas =
-document.createElement(
-"canvas"
-);
-
-canvas.width =
-Math.round(width);
-
-canvas.height =
-Math.round(height);
-
-
-const ctx =
-canvas.getContext(
-"2d"
-);
-
-
-ctx.drawImage(
-img,
-0,
-0,
-canvas.width,
-canvas.height
-);
-
-
-const compressed =
-canvas.toDataURL(
-"image/jpeg",
-0.60
-);
-
-
-resolve(compressed);
-
-};
-
-
-img.onerror =
-function(){
-
-reject(
-new Error(
-"Image loading failed"
-)
-);
-
-};
-
-
-img.src =
-event.target.result;
-
-};
-
-
-reader.onerror =
-function(){
-
-reject(
-new Error(
-"File reading failed"
-)
-);
-
-};
-
-
-reader.readAsDataURL(file);
-
-}
-);
-
-}
-
-
-/* ADD PRODUCT */
-
-productForm.addEventListener(
-"submit",
-async function(event){
-
-event.preventDefault();
-
-
-const name =
-document
-.getElementById("productName")
-.value
-.trim();
-
-
-const price =
-Number(
-document
-.getElementById("productPrice")
-.value
-);
-
-
-const category =
-document
-.getElementById("productCategory")
-.value;
-
-
-const description =
-document
-.getElementById("productDescription")
-.value
-.trim();
-
-
-const imageUrl =
-preview.dataset.image ||
-"";
-
-
-if(
-!name ||
-!price ||
-!category ||
-!imageUrl
-){
-
-productMessage.textContent =
-"⚠️ Cika bayanan product gaba ɗaya.";
-
-return;
-
-}
-
-
-addProductBtn.disabled =
-true;
-
-addProductBtn.textContent =
-"⏳ Ana ƙara product...";
-
-productMessage.textContent =
-"";
-
-
-try{
-
-await db
-.collection("products")
-.add({
-
-name:
-name,
-
-price:
-price,
-
-category:
-category,
-
-description:
-description,
-
-imageUrl:
-imageUrl,
-
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
+  }
 
 });
 
 
-productMessage.textContent =
-"✅ An ƙara product cikin nasara!";
+/* =========================
+   LOGOUT
+========================= */
 
+async function logout() {
 
-clearForm();
-
-await loadProducts();
-
-}
-
-catch(error){
-
-console.error(error);
-
-productMessage.textContent =
-"❌ An samu matsala: "+
-error.message;
+  await auth.signOut();
 
 }
 
 
-addProductBtn.disabled =
-false;
+/* =========================
+   IMAGE PREVIEW
+========================= */
 
-addProductBtn.textContent =
-"➕ Add Product";
+function previewImage(event) {
 
-}
-);
+  const file = event.target.files[0];
+  const preview = document.getElementById("imagePreview");
 
+  if (!file) {
+    preview.style.display = "none";
+    return;
+  }
 
-/* LOAD PRODUCTS */
+  const reader = new FileReader();
 
-async function loadProducts(){
+  reader.onload = function(e) {
 
-productList.innerHTML =
-"<p>⏳ Ana ɗauko products...</p>";
+    preview.src = e.target.result;
+    preview.style.display = "block";
 
+  };
 
-try{
-
-const snapshot =
-await db
-.collection("products")
-.get();
-
-
-productList.innerHTML =
-"";
-
-
-if(
-snapshot.empty
-){
-
-productList.innerHTML =
-"<p>🛍️ Babu products tukuna.</p>";
-
-return;
-
+  reader.readAsDataURL(file);
 }
 
 
-snapshot.forEach(
-function(documentSnapshot){
+/* =========================
+   COMPRESS IMAGE
+========================= */
 
-const product =
-documentSnapshot.data();
+function compressImage(file) {
 
-const productId =
-documentSnapshot.id;
+  return new Promise(function(resolve, reject) {
 
+    const reader = new FileReader();
 
-const card =
-document.createElement(
-"div"
-);
+    reader.onload = function(event) {
 
-card.className =
-"product";
+      const img = new Image();
 
+      img.onload = function() {
 
-const image =
-document.createElement(
-"img"
-);
+        const maxSize = 700;
 
-image.src =
-product.imageUrl ||
-"";
+        let width = img.width;
+        let height = img.height;
 
-image.alt =
-product.name ||
-"Product";
+        if (width > height) {
 
+          if (width > maxSize) {
+            height = Math.round(height * maxSize / width);
+            width = maxSize;
+          }
 
-const info =
-document.createElement(
-"div"
-);
+        } else {
 
-info.className =
-"product-info";
+          if (height > maxSize) {
+            width = Math.round(width * maxSize / height);
+            height = maxSize;
+          }
 
+        }
 
-const title =
-document.createElement(
-"h3"
-);
+        const canvas = document.createElement("canvas");
 
-title.textContent =
-product.name ||
-"";
+        canvas.width = width;
+        canvas.height = height;
 
+        const ctx = canvas.getContext("2d");
 
-const price =
-document.createElement(
-"div"
-);
+        ctx.drawImage(img, 0, 0, width, height);
 
-price.className =
-"price";
+        const compressed = canvas.toDataURL("image/jpeg", 0.60);
 
-price.textContent =
-"₦"+
-Number(
-product.price || 0
-).toLocaleString();
+        resolve(compressed);
 
+      };
 
-const category =
-document.createElement(
-"div"
-);
+      img.onerror = reject;
 
-category.className =
-"category";
+      img.src = event.target.result;
 
-category.textContent =
-product.category ||
-"";
+    };
 
+    reader.onerror = reject;
 
-const description =
-document.createElement(
-"p"
-);
+    reader.readAsDataURL(file);
 
-description.textContent =
-product.description ||
-"";
-
-
-const deleteButton =
-document.createElement(
-"button"
-);
-
-deleteButton.type =
-"button";
-
-deleteButton.className =
-"delete-btn";
-
-deleteButton.textContent =
-"🗑️ Delete Product";
-
-
-deleteButton.addEventListener(
-"click",
-function(){
-
-deleteProduct(
-productId
-);
-
-}
-);
-
-
-info.appendChild(title);
-
-info.appendChild(price);
-
-info.appendChild(category);
-
-info.appendChild(description);
-
-info.appendChild(deleteButton);
-
-card.appendChild(image);
-
-card.appendChild(info);
-
-productList.appendChild(card);
-
-}
-);
-
-}
-
-catch(error){
-
-console.error(error);
-
-productList.innerHTML =
-"❌ An kasa ɗauko products: "+
-error.message;
-
-}
+  });
 
 }
 
 
-/* DELETE PRODUCT */
+/* =========================
+   ADD / UPDATE PRODUCT
+========================= */
 
-async function deleteProduct(id){
+async function saveProduct() {
 
-const confirmed =
-confirm(
-"Ka tabbatar kana son cire wannan product?"
-);
+  const name = document.getElementById("productName").value.trim();
+  const price = document.getElementById("productPrice").value.trim();
+  const category = document.getElementById("productCategory").value;
+  const description = document.getElementById("productDescription").value.trim();
+  const stock = document.getElementById("productStock").value === "true";
+  const imageFile = document.getElementById("productImage").files[0];
+
+  const status = document.getElementById("systemStatus");
+  const button = document.getElementById("saveButton");
+
+  if (!name || !price || !description) {
+
+    showStatus(
+      status,
+      "❌ Cika Product Name, Price da Description.",
+      "error"
+    );
+
+    return;
+  }
 
 
-if(!confirmed){
+  button.disabled = true;
 
-return;
+  if (editingProductId) {
+    button.innerText = "⏳ Ana updating...";
+  } else {
+    button.innerText = "⏳ Ana saving...";
+  }
+
+
+  try {
+
+    let imageUrl = oldImageUrl;
+
+
+    /* NEW IMAGE */
+
+    if (imageFile) {
+
+      imageUrl = await compressImage(imageFile);
+
+    }
+
+
+    /* ADD NEW */
+
+    if (!editingProductId) {
+
+      if (!imageUrl) {
+
+        showStatus(
+          status,
+          "❌ Saka hoton product.",
+          "error"
+        );
+
+        button.disabled = false;
+        button.innerText = "➕ Add Product";
+
+        return;
+      }
+
+
+      await db.collection("products").add({
+
+        name: name,
+        price: price,
+        category: category,
+        description: description,
+        imageUrl: imageUrl,
+        inStock: stock,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+
+      });
+
+
+      showStatus(
+        status,
+        "✅ An saka Product cikin nasara.",
+        "success"
+      );
+
+    }
+
+
+    /* UPDATE EXISTING */
+
+    else {
+
+      await db
+        .collection("products")
+        .doc(editingProductId)
+        .update({
+
+          name: name,
+          price: price,
+          category: category,
+          description: description,
+          imageUrl: imageUrl,
+          inStock: stock,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+
+        });
+
+
+      showStatus(
+        status,
+        "✅ An sabunta Product cikin nasara.",
+        "success"
+      );
+
+    }
+
+
+    cancelEdit();
+
+    await loadProducts();
+
+
+  } catch (error) {
+
+    showStatus(
+      status,
+      "❌ Error: " + error.message,
+      "error"
+    );
+
+  }
+
+
+  button.disabled = false;
 
 }
 
 
-try{
+/* =========================
+   LOAD PRODUCTS
+========================= */
 
-await db
-.collection("products")
-.doc(id)
-.delete();
+async function loadProducts() {
+
+  const list = document.getElementById("productsList");
+
+  list.innerHTML =
+    '<div class="loading">Ana loading products...</div>';
+
+  try {
+
+    const snapshot =
+      await db.collection("products").get();
+
+    if (snapshot.empty) {
+
+      list.innerHTML =
+        "<p>❌ Babu Products tukuna.</p>";
+
+      return;
+    }
 
 
-alert(
-"✅ An cire product cikin nasara."
-);
+    list.innerHTML = "";
 
 
-await loadProducts();
+    snapshot.forEach(function(doc) {
+
+      const product = doc.data();
+
+      const id = doc.id;
+
+      const inStock = product.inStock !== false;
+
+
+      const card = document.createElement("div");
+
+      card.className = "product-card";
+
+
+      const image = document.createElement("img");
+
+      image.src = product.imageUrl || "";
+
+      image.alt = product.name || "Product";
+
+
+      const title = document.createElement("h3");
+
+      title.textContent = product.name || "Unnamed Product";
+
+
+      const price = document.createElement("div");
+
+      price.className = "price";
+
+      price.textContent =
+        "₦" + Number(product.price || 0).toLocaleString();
+
+
+      const category = document.createElement("div");
+
+      category.className = "category";
+
+      category.textContent =
+        "Category: " + (product.category || "");
+
+
+      const description = document.createElement("div");
+
+      description.className = "description";
+
+      description.textContent =
+        product.description || "";
+
+
+      const stock = document.createElement("span");
+
+      if (inStock) {
+
+        stock.className = "in-stock";
+
+        stock.textContent = "🟢 IN STOCK";
+
+      } else {
+
+        stock.className = "out-stock";
+
+        stock.textContent = "🔴 OUT OF STOCK";
+
+      }
+
+
+      const actions = document.createElement("div");
+
+      actions.className = "actions";
+
+
+      const editButton = document.createElement("button");
+
+      editButton.className = "edit-btn";
+
+      editButton.textContent = "✏️ Edit";
+
+      editButton.onclick = function() {
+
+        editProduct(id, product);
+
+      };
+
+
+      const stockButton = document.createElement("button");
+
+      stockButton.className =
+        inStock ? "out-btn" : "stock-btn";
+
+      stockButton.textContent =
+        inStock
+          ? "🔴 Out of Stock"
+          : "🟢 In Stock";
+
+      stockButton.onclick = function() {
+
+        toggleStock(id, inStock);
+
+      };
+
+
+      const deleteButton = document.createElement("button");
+
+      deleteButton.className = "delete-btn";
+
+      deleteButton.textContent = "🗑️ Delete";
+
+      deleteButton.onclick = function() {
+
+        deleteProduct(id, product.name);
+
+      };
+
+
+      actions.appendChild(editButton);
+      actions.appendChild(stockButton);
+      actions.appendChild(deleteButton);
+
+
+      card.appendChild(image);
+      card.appendChild(title);
+      card.appendChild(price);
+      card.appendChild(category);
+      card.appendChild(description);
+      card.appendChild(stock);
+      card.appendChild(actions);
+
+
+      list.appendChild(card);
+
+    });
+
+
+  } catch (error) {
+
+    list.innerHTML =
+      '<div class="status error" style="display:block;">' +
+      "❌ Error loading products: " +
+      error.message +
+      "</div>";
+
+  }
 
 }
 
-catch(error){
 
-console.error(error);
+/* =========================
+   EDIT PRODUCT
+========================= */
 
-alert(
-"❌ An kasa cire product: "+
-error.message
-);
+function editProduct(id, product) {
+
+  editingProductId = id;
+
+  oldImageUrl = product.imageUrl || "";
+
+
+  document.getElementById("productName").value =
+    product.name || "";
+
+  document.getElementById("productPrice").value =
+    product.price || "";
+
+  document.getElementById("productCategory").value =
+    product.category || "Fashion";
+
+  document.getElementById("productDescription").value =
+    product.description || "";
+
+  document.getElementById("productStock").value =
+    product.inStock === false ? "false" : "true";
+
+
+  const preview =
+    document.getElementById("imagePreview");
+
+
+  if (oldImageUrl) {
+
+    preview.src = oldImageUrl;
+    preview.style.display = "block";
+
+  } else {
+
+    preview.style.display = "none";
+
+  }
+
+
+  document.getElementById("formTitle").innerText =
+    "✏️ Edit Product";
+
+
+  document.getElementById("saveButton").innerText =
+    "💾 Update Product";
+
+
+  document.getElementById("cancelButton")
+    .classList.remove("hidden");
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
 }
 
+
+/* =========================
+   CANCEL EDIT
+========================= */
+
+function cancelEdit() {
+
+  editingProductId = null;
+
+  oldImageUrl = "";
+
+
+  document.getElementById("productName").value = "";
+
+  document.getElementById("productPrice").value = "";
+
+  document.getElementById("productCategory").value =
+    "Fashion";
+
+  document.getElementById("productDescription").value = "";
+
+  document.getElementById("productStock").value =
+    "true";
+
+  document.getElementById("productImage").value = "";
+
+
+  const preview =
+    document.getElementById("imagePreview");
+
+  preview.src = "";
+
+  preview.style.display = "none";
+
+
+  document.getElementById("formTitle").innerText =
+    "➕ Add New Product";
+
+
+  document.getElementById("saveButton").innerText =
+    "➕ Add Product";
+
+
+  document.getElementById("cancelButton")
+    .classList.add("hidden");
+
+}
+
+
+/* =========================
+   STOCK TOGGLE
+========================= */
+
+async function toggleStock(id, currentStatus) {
+
+  try {
+
+    await db
+      .collection("products")
+      .doc(id)
+      .update({
+
+        inStock: !currentStatus,
+
+        updatedAt:
+          firebase.firestore.FieldValue.serverTimestamp()
+
+      });
+
+
+    await loadProducts();
+
+
+  } catch (error) {
+
+    alert("❌ Error: " + error.message);
+
+  }
+
 }
 
 
-/* CLEAR FORM */
+/* =========================
+   DELETE PRODUCT
+========================= */
 
-function clearForm(){
+async function deleteProduct(id, name) {
 
-productForm.reset();
-
-preview.src =
-"";
-
-preview.style.display =
-"none";
-
-preview.dataset.image =
-"";
-
-imageInfo.textContent =
-"";
-
-productMessage.textContent =
-"";
-
-}
+  const confirmDelete =
+    confirm(
+      "Kana tabbatar kana son goge:\n\n" +
+      name +
+      "\n\nBa za a iya dawo da shi ba."
+    );
 
 
-document
-.getElementById("clearBtn")
-.addEventListener(
-"click",
-clearForm
-);
+  if (!confirmDelete) {
+    return;
+  }
 
 
-/* SYSTEM ERROR */
+  try {
 
-window.addEventListener(
-"error",
-function(event){
+    await db
+      .collection("products")
+      .doc(id)
+      .delete();
 
-console.error(event.error);
 
-systemError.style.display =
-"block";
+    alert("✅ An goge Product.");
 
-systemError.textContent =
-"⚠️ An samu matsala wajen buɗe Admin. Ka refresh page ɗin.";
+    await loadProducts();
+
+
+  } catch (error) {
+
+    alert(
+      "❌ Error deleting product: " +
+      error.message
+    );
+
+  }
 
 }
-);
+
+
+/* =========================
+   STATUS MESSAGE
+========================= */
+
+function showStatus(element, message, type) {
+
+  element.textContent = message;
+
+  element.className =
+    "status " + type;
+
+  element.style.display = "block";
+
+
+  setTimeout(function() {
+
+    element.style.display = "none";
+
+  }, 5000);
+
+}
 
 </script>
 
 </body>
-
-  </html>
+        </html>
